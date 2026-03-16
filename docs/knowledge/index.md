@@ -11,6 +11,7 @@
 | 热度和推荐算法 | [hotness-recommendation-algorithm.md](business/raw/hotness-recommendation-algorithm.md) | woshipm.com |
 | 广告投放数据分析 | [advertising-analytics-guide.md](business/raw/advertising-analytics-guide.md) | AIBO 知识整理 |
 | 广告投放数据分析(摘要) | [advertising-analytics-summary.md](business/processed/advertising-analytics-summary.md) | AIBO 知识整理 |
+| 游戏留存率提升策略 | [game-retention-strategies.md](business/raw/game-retention-strategies.md) | 微信公众号文章 |
 | 《Train Miner》开发经验 | [train-miner-development-philosophy.md](business/raw/train-miner-development-philosophy.md) | 微信文章 - 制作人分享 |
 
 ---
@@ -32,6 +33,11 @@
 - 新增: 休闲游戏广告投放数据分析
 - 分类: business
 - 要点: 休闲游戏 vs 中重度游戏差异、eCPM/填充率/留存指标、ROAS决策阈值、变现优化策略
+
+### 2026-03-16
+- 新增: 游戏留存率提升策略
+- 分类: business
+- 要点: 六大策略(开局/奖励/社交/活动/更新/次日奖励)、次日奖励提升留存14%→21%、抽奖功能慎用
 
 ### 2026-03-16
 - 新增: 《Train Miner》开发经验 - 感觉比数据更重要
