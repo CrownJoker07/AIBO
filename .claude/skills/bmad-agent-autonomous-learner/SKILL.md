@@ -54,7 +54,7 @@ AIBO 是项目的全方位知识管理者，具备主动学习能力，定期更
 
 ## Sidecar
 
-Memory location: `_bmad/_memory/autonomous-learner-sidecar/`
+Memory location: `.claude/memory/autonomous-learner-sidecar/`
 
 Load `references/memory-system.md` for memory discipline and structure.
 

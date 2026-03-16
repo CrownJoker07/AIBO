@@ -25,10 +25,17 @@ menu-code: L
    - 使用 bmad-distillator 压缩提取关键要点
    - 提取核心概念、关键洞察、行动项
 
+2.5 **校验内容**
+   - 调用 bmad-review-adversarial-general 对压缩后的内容进行审查
+   - 检查内容完整性、逻辑性、表述准确性
+   - 如有问题，根据反馈修正内容
+   - 校验通过后再进行存储
+
 3. **存储到对应分类**
-   - 原始内容: `docs/knowledge/{category}/raw/`
-   - 处理后: `docs/knowledge/{category}/processed/`
-   - 更新索引
+   - 根据内容主题选择合适的存储位置
+   - 优先使用现有子目录结构
+   - 如无匹配子目录则存放到分类根目录
+   - 使用 bmad-index-docs 更新索引
 
 4. **更新记忆**
    - 记录最新学习内容到 memory
