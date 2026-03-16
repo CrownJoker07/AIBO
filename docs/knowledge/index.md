@@ -1,7 +1,7 @@
 # 知识索引
 
 > AIBO 知识库索引
-> 最后更新: 2026-03-16
+> 最后更新: 2026-03-17
 
 ## 分类目录
 
@@ -16,12 +16,20 @@
 
 ---
 
+### Tech (技术知识)
+| 主题 | 文件 | 来源 |
+|------|------|------|
+| Claude Code 浏览器自动化方案对比 | [claude-code-browser-automation-2026.md](tech/claude-code-browser-automation-2026.md) | heyuan110.com |
+
+---
+
 ## 学习记录
 
-### 2026-03-16
-- 新增: 广告投放数据分析知识
-- 分类: business
-- 要点: 核心指标(CPM/CPI/ROI/ROAS/LTV)、渠道分析方法、优化策略框架、决策阈值
+### 2026-03-17
+- 新增: Claude Code 浏览器自动化方案对比（2026）
+- 来源: https://www.heyuan110.com/zh/posts/ai/2026-01-28-claude-code-browser-automation/
+- 分类: tech
+- 要点: 五大方案对比(Browser-use/Agent Browser/Playwright CLI/MCP/DevTools)、Token节省75-99%、场景选择指南
 
 ### 2026-03-16
 - 新增: 产品算法知识 - 热度和推荐算法
