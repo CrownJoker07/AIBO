@@ -9,10 +9,17 @@
 | 主题 | 文件 | 来源 |
 |------|------|------|
 | 热度和推荐算法 | [hotness-recommendation-algorithm.md](business/raw/hotness-recommendation-algorithm.md) | woshipm.com |
+| 广告投放数据分析 | [advertising-analytics-guide.md](business/raw/advertising-analytics-guide.md) | AIBO 知识整理 |
+| 广告投放数据分析(摘要) | [advertising-analytics-summary.md](business/processed/advertising-analytics-summary.md) | AIBO 知识整理 |
 
 ---
 
 ## 学习记录
+
+### 2026-03-16
+- 新增: 广告投放数据分析知识
+- 分类: business
+- 要点: 核心指标(CPM/CPI/ROI/ROAS/LTV)、渠道分析方法、优化策略框架、决策阈值
 
 ### 2026-03-16
 - 新增: 产品算法知识 - 热度和推荐算法
