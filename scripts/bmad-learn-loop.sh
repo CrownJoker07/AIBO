@@ -5,6 +5,14 @@ set -euo pipefail
 # ============================================
 # BMAD Auto Learning Loop Script
 # 自动从配置的学习源获取知识并存储
+#
+# 使用方式:
+#   ./bmad-learn-loop.sh [max_rounds] [category]
+#
+# 示例:
+#   ./bmad-learn-loop.sh 100           # 学习所有分类
+#   ./bmad-learn-loop.sh 100 business  # 只学习 business 分类
+#   ./bmad-learn-loop.sh 50 tech       # 只学习 tech 分类
 # ============================================
 
 OUTPUT_FILE="docs/knowledge/autonomous-log.md"
@@ -12,6 +20,7 @@ SOURCES_FILE="scripts/learning-sources.txt"
 LEARNED_FILE="docs/knowledge/.learned-urls.txt"
 COUNT=0
 MAX_ROUNDS=${1:-100}
+CATEGORY_FILTER=${2:-}  # 可选：指定分类过滤
 SLEEP_INTERVAL=${SLEEP_INTERVAL:-5}
 
 trap "echo '🛑 Learning loop stopped'; kill 0; exit 0" SIGINT SIGTERM
@@ -20,6 +29,7 @@ echo "📚 BMAD Learn Loop Started"
 echo "Output: $OUTPUT_FILE"
 echo "Sources: $SOURCES_FILE"
 echo "Max rounds: $MAX_ROUNDS"
+echo "Category filter: ${CATEGORY_FILTER:-all}"
 
 # 检查依赖
 if ! command -v jq >/dev/null 2>&1; then
@@ -212,6 +222,11 @@ get_pending_sources() {
     while IFS='|' read -r category url description selector frequency || [ -n "$category" ]; do
         # 跳过空行和注释
         [[ -z "$category" || "$category" =~ ^[[:space:]]*# ]] && continue
+
+        # 如果指定了分类过滤，只匹配该分类
+        if [ -n "$CATEGORY_FILTER" ] && [ "$category" != "$CATEGORY_FILTER" ]; then
+            continue
+        fi
 
         # 跳过已学习的主页 URL
         if ! is_url_learned "$url"; then
