@@ -12,16 +12,23 @@
 # ============================================
 
 # ============ 商业知识 (business) ============
-# business|https://example.com/business-article|商业策略文章
+# 游戏行业
+business|https://www.pocketgamer.biz/|移动游戏行业新闻与商业分析
+business|https://gameanalytics.com/blog/|游戏数据分析与变现策略
+business|https://www.deconstructoroffun.com/|游戏设计深度分析与行业洞察
+business|https://sensortower.com/blog|移动应用市场情报与游戏行业报告
 
-# ============ 数据分析 (data) ============
-# data|https://example.com/data-article|数据分析文章
-
-# ============ 规划文档 (planning) ============
-# planning|https://example.com/planning-article|产品规划文章
+# AI行业
+business|https://venturebeat.com/category/ai/|AI行业新闻与企业应用分析
+business|https://www.artificialintelligence-news.com/|人工智能行业动态与商业策略
+business|https://www.ben-evans.com/benedictevans|AI与科技行业战略分析
+business|https://stratechery.com/|科技与AI商业模式深度分析
 
 # ============ 技术文档 (tech) ============
-# tech|https://example.com/tech-article|技术博客
+tech|https://gameprogrammingpatterns.com/|游戏编程模式书籍
+tech|https://refactoring.guru/design-patterns|设计模式教程
+tech|https://docs.unity3d.com/Manual/index.html|Unity官方文档
+tech|https://mp.weixin.qq.com/s/3UUCWUzZyiHJC1MHk7-kDg|Kimi注意力残差技术：用注意力替代残差连接
 
 # ============ 市场分析 (market) ============
-# market|https://example.com/market-article|市场分析文章
+# 待添加市场分析资源
