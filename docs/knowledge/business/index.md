@@ -1,5 +1,9 @@
 # Business 知识库索引
 
+## 根目录文档
+
+- **[game-analytics-monetization-strategy.md](./game-analytics-monetization-strategy.md)** - AnalyticsIQ 游戏数据分析与变现策略核心指南
+
 ## analytics/
 
 - **[gameanalytics-blog-insights.md](./analytics/gameanalytics-blog-insights.md)** - GameAnalytics 博客核心洞察：A/B测试、用户获取、变现策略
