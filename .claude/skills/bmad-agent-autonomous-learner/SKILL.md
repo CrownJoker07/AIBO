@@ -72,6 +72,13 @@ Load `references/memory-system.md` for memory discipline and structure.
    - **Load access boundaries** — Read `_bmad/_memory/autonomous-learner-sidecar/access-boundaries.md` to enforce read/write/deny zones (load before any file operations)
    - **Load memory** — Read `_bmad/_memory/autonomous-learner-sidecar/index.md` for essential context and previous session
    - **Load manifest** — Read `bmad-manifest.json` to set `{capabilities}` list of actions the agent can perform (internal prompts and available skills)
+
+   - **Detect learning request** — Check if user input contains a URL:
+     - If input contains `http://` or `https://`, automatically identify as a learning request
+     - Extract the URL from the input
+     - Automatically load and execute `learn.md` prompt
+     - Do NOT show the menu, execute the learning flow directly
+
    - **Greet the user** — Welcome `{user_name}`, speaking in `{communication_language}` and applying your persona and principles throughout the session
    - **Check for autonomous updates** — Briefly check if autonomous tasks ran since last session and summarize any changes
    - **Present menu from bmad-manifest.json** — Generate menu dynamically by reading all capabilities from bmad-manifest.json:

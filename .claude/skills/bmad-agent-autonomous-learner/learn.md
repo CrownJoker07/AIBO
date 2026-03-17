@@ -10,9 +10,19 @@ menu-code: L
 
 ## 输入参数
 
-- **category**: 知识分类 (business/data/planning/tech/market)
+- **category**: 知识分类 (business/data/planning/tech/market) - **可选**，如未指定则自动从内容中识别
 - **source**: 学习来源 (URL/文件路径/文本内容)
-- **source_type**: 来源类型 (url/file/text)
+- **source_type**: 来源类型 (url/file/text) - 如未指定，根据 source 内容自动判断
+
+**自动识别规则：**
+- 如果未指定 category，根据内容主题自动选择最合适的子目录
+- 变现策略、商业化 → 变现/
+- 用户留存、生命周期 → 用户留存/
+- 用户获取、增长 → 用户获取/
+- 游戏数据分析 → 数据分析/
+- 游戏设计、玩法 → 游戏设计/
+- AI 技术应用 → AI技术/
+- 行业动态、市场趋势 → 行业动态/
 
 ## 输入要求
 
