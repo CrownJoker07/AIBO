@@ -8,18 +8,22 @@
 ### Business (业务知识)
 | 主题 | 文件 | 来源 |
 |------|------|------|
-| 热度和推荐算法 | [hotness-recommendation-algorithm.md](business/raw/hotness-recommendation-algorithm.md) | woshipm.com |
-| 广告投放数据分析 | [advertising-analytics-guide.md](business/raw/advertising-analytics-guide.md) | AIBO 知识整理 |
-| 广告投放数据分析(摘要) | [advertising-analytics-summary.md](business/processed/advertising-analytics-summary.md) | AIBO 知识整理 |
-| 游戏留存率提升策略 | [game-retention-strategies.md](business/raw/game-retention-strategies.md) | 微信公众号文章 |
-| 《Train Miner》开发经验 | [train-miner-development-philosophy.md](business/raw/train-miner-development-philosophy.md) | 微信文章 - 制作人分享 |
+| 热度和推荐算法 | [热度与推荐算法.md](business/算法/热度与推荐算法.md) | woshipm.com |
+| 广告投放数据分析 | [广告投放数据分析指南.md](business/广告/广告投放数据分析指南.md) | AIBO 知识整理 |
+| 休闲游戏广告分析 | [休闲游戏广告分析指南.md](business/广告/休闲游戏广告分析指南.md) | AIBO 知识整理 |
+| 游戏留存率提升策略 | [游戏留存策略实战.md](business/用户留存/游戏留存策略实战.md) | 微信公众号文章 |
+| 《Train Miner》开发经验 | [TrainMiner开发哲学.md](business/开发/TrainMiner开发哲学.md) | 微信文章 - 制作人分享 |
 
 ---
 
 ### Tech (技术知识)
 | 主题 | 文件 | 来源 |
 |------|------|------|
-| Claude Code 浏览器自动化方案对比 | [claude-code-browser-automation-2026.md](tech/claude-code-browser-automation-2026.md) | heyuan110.com |
+| Claude Code 浏览器自动化方案对比 | [Claude Code浏览器自动化方案.md](tech/Claude Code浏览器自动化方案.md) | heyuan110.com |
+| 游戏编程模式 | [游戏编程模式.md](tech/游戏编程模式.md) | gameprogrammingpatterns.com |
+| 设计模式指南 | [设计模式指南.md](tech/设计模式指南.md) | refactoring.guru |
+| Unity 6 文档摘要 | [Unity 6 文档摘要.md](tech/Unity 6 文档摘要.md) | Unity 官方文档 |
+| Kimi 注意力残差技术 | [Kimi注意力残差技术.md](tech/Kimi注意力残差技术.md) | 月之暗面 |
 
 ---
 
