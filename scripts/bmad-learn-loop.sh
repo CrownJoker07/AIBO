@@ -431,8 +431,7 @@ do
 
     if [ -z "$ARTICLE_URLS" ]; then
         echo "⚠️ No articles found, skipping..."
-        # 标记主页为已学习，避免重复处理
-        mark_url_learned "$URL"
+        # 不要标记主页！只跳过这篇文章
         continue
     fi
 
@@ -532,9 +531,8 @@ do
         sleep "$SLEEP_INTERVAL"
     done <<< "$ARTICLE_URLS"
 
-    # 如果有文章被学习，标记主页为已处理
+    # 如果有文章被学习，只标记具体文章（主页不标记）
     if [ $ARTICLES_LEARNED -gt 0 ]; then
-        mark_url_learned "$URL"
         echo ""
         echo "✅ Round $COUNT finished: $ARTICLES_LEARNED article(s) learned"
     else
