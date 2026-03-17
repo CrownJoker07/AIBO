@@ -4,6 +4,7 @@
 
 - **[game-analytics-monetization-strategy.md](./game-analytics-monetization-strategy.md)** - AnalyticsIQ 游戏数据分析与变现策略核心指南
 - **[game-analytics-acquisition-strategy.md](./game-analytics-acquisition-strategy.md)** - AnalyticsIQ 用户获取策略指南，UA优化与ROAS分析
+- **[game-analytics-engagement-retention-strategy.md](./game-analytics-engagement-retention-strategy.md)** - AnalyticsIQ 用户参与与留存策略指南，漏斗分析与功能采用
 
 ## analytics/
 
