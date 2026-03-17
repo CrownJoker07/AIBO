@@ -160,7 +160,8 @@ ${sources_list}
         --no-session-persistence \
         --dangerously-skip-permissions \
         --output-format stream-json \
-        2>/dev/null | jq -rj 'select(.type == "stream_event" and .event.delta.type? == "text_delta") | .event.delta.text' 2>/dev/null || echo "")
+        --verbose \
+        2>/dev/null | jq -rj 'select(.type == "result") | .result' 2>/dev/null || echo "")
 
     # 4. 解析匹配结果
     if [ -z "$claude_response" ]; then
