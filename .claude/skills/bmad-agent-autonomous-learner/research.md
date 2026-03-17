@@ -27,11 +27,12 @@ menu-code: R
    - 生成洞察和建议
 
 3. **存储结果**
-   - 原始调研: `docs/knowledge/{category}/raw/research-{topic}.md`
-   - 处理后: `docs/knowledge/{category}/processed/`
-   - 调研报告: `docs/knowledge/{category}/summaries/`
+   - 根据内容主题选择合适的存储位置
+   - 优先使用现有子目录结构
+   - 如无匹配子目录则存放到分类根目录
+   - 使用 bmad-index-docs 更新索引
 
-4. **更新索引和记忆**
+4. **更新记忆**
 
 ## 输出
 
