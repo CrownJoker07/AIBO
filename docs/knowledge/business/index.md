@@ -66,13 +66,22 @@
 
 | 文档 | 描述 |
 |------|------|
+| [DeconstructorofFun-F2P游戏设计分析](./行业动态/2026-03-17-DeconstructorofFun-F2P游戏设计分析.md) | Deconstructor of Fun F2P游戏设计深度分析平台核心洞察 |
 | [PocketGamer 行业动态](./行业动态/2026-03-17-PocketGamer行业动态.md) | 2024年12月-2025年1月移动游戏行业动态汇总 |
+| [GamesIndustry 行业动态](./行业动态/2026-03-17-GamesIndustry行业动态.md) | 2025-2026游戏市场趋势与行业并购动态 |
+| [GameDeveloper 行业动态](./行业动态/2026-03-17-GameDeveloper行业动态.md) | GameDeveloper.com 平台价值与GDC 2026重点议题 |
 
 ## 行业资源/
 
 | 文档 | 描述 |
 |------|------|
 | [GamesIndustry 行业资源](./行业资源/2026-03-17-GamesIndustry行业资源.md) | 全球游戏行业领先的新闻与信息平台介绍 |
+
+## 移动归因/
+
+| 文档 | 描述 |
+|------|------|
+| [AppsFlyer 移动归因分析](./移动归因/2026-03-17-AppsFlyer移动归因分析.md) | AppsFlyer 移动归因平台核心能力与SKAN隐私方案 |
 
 ---
 
