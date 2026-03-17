@@ -4,7 +4,7 @@
 # ============================================
 #
 # 格式: 分类|URL|描述|文章选择器|更新频率
-# 分类: business | data | planning | tech | market
+# 分类: business | data | planning | tech | market | retention | advertising
 # 文章选择器: CSS选择器，用于从主页提取具体文章链接
 # 更新频率: daily | weekly | monthly
 #
@@ -55,6 +55,72 @@ tech|https://martinfowler.com/|软件架构与重构思想|article a|monthly
 tech|https://mp.weixin.qq.com/s/3UUCWUzZyiHJC1MHk7-kDg|Kimi注意力残差技术：用注意力替代残差连接||once
 tech|https://www.youtube.com/@AndrejKarpathy|Andrej Karpathy AI教学视频||once
 tech|https://distill.pub/|机器学习可视化研究与深度解析|article a|monthly
+
+# ============ 游戏留存与参与度 (retention) ============
+# 游戏留存 - 深度分析与设计洞察
+retention|https://www.blog.udonis.co/|移动游戏用户获取、变现与留存深度分析|article a|daily
+retention|https://naavik.co/|游戏行业深度分析与商业洞察|article a|weekly
+retention|https://gameanalytics.com/blog/|游戏数据分析、留存与变现策略|.post-title a|weekly
+retention|https://gamerefinery.com/blog/|游戏特性分析与留存趋势洞察|article a|weekly
+retention|https://www.deconstructoroffun.com/|F2P游戏设计与留存深度分析|article a|weekly
+retention|https://lostgarden.com/|游戏设计理论与系统性设计思考|article a|monthly
+
+# 游戏留存 - 行业新闻与案例
+retention|https://www.pocketgamer.biz/|移动游戏行业新闻与留存策略|article a|daily
+retention|https://www.gamesindustry.biz/|全球游戏行业新闻与留存案例|article a|daily
+retention|https://gamedeveloper.com/|游戏开发者：设计、运营与留存洞察|article a|daily
+
+# 游戏留存 - 产品分析与用户行为
+retention|https://mixpanel.com/blog/|产品分析与用户留存策略|article a|weekly
+retention|https://clevertap.com/blog/|用户留存与参与度分析最佳实践|article a|weekly
+retention|https://amplitude.com/blog/|产品分析与用户行为洞察|article a|weekly
+retention|https://www.revenuecat.com/blog/|订阅变现与用户留存策略|article a|weekly
+retention|https://www.hotjar.com/blog/|用户行为分析与体验优化|article a|weekly
+retention|https://www.smartlook.com/blog/|用户行为分析与留存优化|article a|weekly
+
+# 游戏留存 - 推送与用户参与
+retention|https://onesignal.com/blog/|推送通知与用户参与策略|article a|weekly
+retention|https://iterable.com/blog/|跨渠道营销与用户留存|article a|weekly
+retention|https://airship.com/blog/|移动用户参与与留存优化|article a|weekly
+retention|https://braze.com/blog/|客户参与与生命周期营销|article a|weekly
+retention|https://www.customer.io/blog/|客户参与自动化与留存|article a|weekly
+
+# 游戏留存 - 中国数据分析平台
+retention|https://www.sensorsdata.cn/|神策数据：用户行为分析与留存|article a|weekly
+retention|https://www.talkingdata.com/|TalkingData移动游戏数据分析|article a|weekly
+retention|https://www.dataeye.com/|DataEye游戏数据分析与洞察|article a|weekly
+retention|https://www.questmobile.com.cn/|QuestMobile移动互联网数据报告|article a|monthly
+
+# ============ 游戏投放与广告数据 (advertising) ============
+# 广告投放 - 归因与测量
+advertising|https://www.appsflyer.com/blog/|移动归因分析与用户增长策略|article a|weekly
+advertising|https://is.com/resources/blog/|ironSource广告变现与用户获取|article a|weekly
+advertising|https://www.singular.net/blog/|营销归因与ROI分析|article a|weekly
+advertising|https://www.kochava.com/blog/|移动归因与广告测量|article a|weekly
+advertising|https://www.tenjin.com/blog/|移动广告ROI与归因分析|article a|weekly
+advertising|https://branch.io/resources/|深度链接与营销归因|article a|weekly
+advertising|https://www.tune.com/blog/|营销归因与广告效果分析|article a|weekly
+
+# 广告投放 - 广告变现平台
+advertising|https://www.chartboost.com/blog/|游戏广告变现平台洞察|article a|weekly
+advertising|https://www.vungle.com/blog/|视频广告与用户获取策略|article a|weekly
+advertising|https://www.mintegral.com/blog/|程序化广告与用户获取|article a|weekly
+advertising|https://tapjoy.com/resources/|激励广告与用户获取策略|article a|weekly
+advertising|https://www.ironsrc.com/blog/|广告变现与用户获取平台|article a|weekly
+
+# 广告投放 - 市场情报与竞品分析
+advertising|https://www.mobileaction.co/blog/|ASO与应用市场情报分析|article a|weekly
+advertising|https://www.apptica.com/|广告情报与游戏数据分析|article a|weekly
+advertising|https://www.appmagic.rocks/blog|游戏市场情报与竞品分析|article a|weekly
+advertising|https://gamerefinery.com/|游戏特性与广告趋势分析|article a|weekly
+
+# 广告投放 - 用户参与与推送
+advertising|https://batch.com/blog/|推送通知与用户参与|article a|weekly
+advertising|https://pushwoosh.com/blog/|跨平台推送与用户获取|article a|weekly
+advertising|https://www.leanplum.com/|移动参与与留存营销|article a|weekly
+
+# 广告投放 - Unity与游戏引擎
+advertising|https://blog.unity.com/|Unity游戏开发与广告变现|article a|weekly
 
 # ============ 市场分析 (market) ============
 # 游戏市场研究
