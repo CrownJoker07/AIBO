@@ -14,12 +14,12 @@
 
 ## Knowledge Stats
 
-- business/: 0 files
+- business/: 20 files
 - data/: 0 files
 - planning/: 0 files
-- tech/: 0 files
+- tech/: 5 files
 - market/: 0 files
 
 ## Last Updated
 
-{current-date}
+2026-03-17
