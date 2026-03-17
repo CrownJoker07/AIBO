@@ -301,6 +301,77 @@ discover_articles() {
     echo "$result"
 }
 
+# 根据关键词过滤文章
+# 参数: $1 = 文章URL列表(换行分隔), $2 = 关键词
+# 输出: 过滤后的文章URL列表
+filter_articles_by_keyword() {
+    local article_urls=$1
+    local keyword=$2
+
+    # 如果没有关键词或关键词为空，不过滤
+    [ -z "$keyword" ] && echo "$article_urls" && return
+
+    echo "🔍 根据关键词 \"$keyword\" 过滤文章..." >&2
+
+    local filtered_result=""
+    local url
+    while IFS= read -r url; do
+        [ -z "$url" ] && continue
+
+        # 获取文章标题（只获取前 5KB 的 HTML，提取 <title>）
+        local title
+        title=$(curl -sL -A "Mozilla/5.0 (compatible; AIBO-Learner/1.0)" \
+            --connect-timeout 5 \
+            --max-time 10 \
+            "$url" 2>/dev/null | \
+            grep -o '<title>[^<]*</title>' | \
+            head -1 | \
+            sed 's/<title>//;s/<\/title>//;s/[[:space:]]//g' || echo "")
+
+        # 如果没有获取到标题，跳过这篇文章
+        if [ -z "$title" ]; then
+            echo "⚠️ 无法获取标题，跳过: $url" >&2
+            continue
+        fi
+
+        # 简单关键词匹配（不区分大小写）
+        local title_lower=$(echo "$title" | tr '[:upper:]' '[:lower:]')
+        local keyword_lower=$(echo "$keyword" | tr '[:upper:]' '[:lower:]')
+
+        # 检查标题是否包含关键词中的任意词
+        local matched=false
+        # 分词处理（按常见分隔符）
+        local IFS=' ,，-、'
+        for kw in $keyword_lower; do
+            if [ -n "$kw" ] && echo "$title_lower" | grep -q "$kw"; then
+                matched=true
+                break
+            fi
+        done
+
+        if [ "$matched" = true ]; then
+            echo "  ✓ 匹配: $title" >&2
+            if [ -n "$filtered_result" ]; then
+                filtered_result="${filtered_result}"$'\n'"${url}"
+            else
+                filtered_result="$url"
+            fi
+        else
+            echo "  ✗ 不匹配: $title" >&2
+        fi
+    done <<< "$article_urls"
+
+    if [ -z "$filtered_result" ]; then
+        echo "⚠️ 没有找到匹配的文章" >&2
+    else
+        local count
+        count=$(echo "$filtered_result" | grep -c . 2>/dev/null || echo "0")
+        echo "✅ 过滤后保留 $count 篇文章" >&2
+    fi
+
+    echo "$filtered_result"
+}
+
 # 自动提交学习结果
 git_commit_learning() {
     local category=$1
@@ -488,6 +559,11 @@ do
         echo "⚠️ No articles found, skipping..."
         # 不要标记主页！只跳过这篇文章
         continue
+    fi
+
+    # 智能过滤模式：根据关键词过滤文章
+    if [ "$FILTER_TYPE" = "smart" ] && [ -n "$FILTER_INPUT" ]; then
+        ARTICLE_URLS=$(filter_articles_by_keyword "$ARTICLE_URLS" "$FILTER_INPUT")
     fi
 
     # 统计本轮文章数
