@@ -7,12 +7,14 @@ set -euo pipefail
 # 自动从配置的学习源获取知识并存储
 #
 # 使用方式:
-#   ./bmad-learn-loop.sh [max_rounds] [category]
+#   ./bmad-learn-loop.sh [max_rounds] [filter]
 #
 # 示例:
-#   ./bmad-learn-loop.sh 100           # 学习所有分类
-#   ./bmad-learn-loop.sh 100 business  # 只学习 business 分类
-#   ./bmad-learn-loop.sh 50 tech       # 只学习 tech 分类
+#   ./bmad-learn-loop.sh 100              # 学习所有分类
+#   ./bmad-learn-loop.sh 100 business     # 只学习 business 分类（固定分类）
+#   ./bmad-learn-loop.sh 50 tech          # 只学习 tech 分类（固定分类）
+#   ./bmad-learn-loop.sh 100 "留存优化"   # 智能匹配与留存优化相关的源
+#   ./bmad-learn-loop.sh 100 "变现策略"   # 智能匹配与变现策略相关的源
 # ============================================
 
 OUTPUT_FILE="docs/knowledge/autonomous-log.md"
@@ -20,16 +22,19 @@ SOURCES_FILE="scripts/learning-sources.txt"
 LEARNED_FILE="docs/knowledge/.learned-urls.txt"
 COUNT=0
 MAX_ROUNDS=${1:-100}
-CATEGORY_FILTER=${2:-}  # 可选：指定分类过滤
+FILTER_INPUT=${2:-}  # 可选：分类名或自然语言提示词
 SLEEP_INTERVAL=${SLEEP_INTERVAL:-5}
 
-trap "echo '🛑 Learning loop stopped'; kill 0; exit 0" SIGINT SIGTERM
+# 智能过滤相关变量
+FILTER_TYPE="all"
+SMART_SOURCES_FILE=""
 
-echo "📚 BMAD Learn Loop Started"
-echo "Output: $OUTPUT_FILE"
-echo "Sources: $SOURCES_FILE"
-echo "Max rounds: $MAX_ROUNDS"
-echo "Category filter: ${CATEGORY_FILTER:-all}"
+# 清理函数
+cleanup() {
+    [ -n "$SMART_SOURCES_FILE" ] && [ -f "$SMART_SOURCES_FILE" ] && rm -f "$SMART_SOURCES_FILE"
+}
+
+trap "cleanup; echo '🛑 Learning loop stopped'; kill 0; exit 0" SIGINT SIGTERM EXIT
 
 # 检查依赖
 if ! command -v jq >/dev/null 2>&1; then
@@ -90,6 +95,109 @@ mark_url_learned() {
 # 检查 URL 是否已学习
 is_url_learned() {
     grep -qF "$1" "$LEARNED_FILE" 2>/dev/null
+}
+
+# 判断是否为固定分类
+is_fixed_category() {
+    case "$1" in
+        business|data|planning|tech|market) return 0 ;;
+        *) return 1 ;;
+    esac
+}
+
+# 智能过滤学习源
+# 参数: $1 = 用户提示词
+# 输出: 匹配的源列表（格式: category|url|description|selector|frequency）
+smart_filter_sources() {
+    local user_prompt=$1
+
+    echo "🧠 正在分析学习源与 \"$user_prompt\" 的相关性..." >&2
+    echo "" >&2
+
+    # 1. 读取所有学习源并构建列表
+    local sources_list=""
+    local index=0
+    while IFS='|' read -r category url description selector frequency || [ -n "$category" ]; do
+        [[ -z "$category" || "$category" =~ ^[[:space:]]*# ]] && continue
+
+        if [ -n "$sources_list" ]; then
+            sources_list="${sources_list}"$'\n'
+        fi
+        sources_list="${sources_list}${index}|${category}|${url}|${description}"
+        index=$((index + 1))
+    done < "$SOURCES_FILE"
+
+    # 2. 构建评估 prompt
+    local eval_prompt
+    eval_prompt="你是一个学习源筛选助手。根据用户的学习需求，从以下学习源中选择最相关的源。
+
+用户学习需求：${user_prompt}
+
+可用学习源列表（格式：索引|分类|URL|描述）：
+${sources_list}
+
+子目录分类参考（用于理解内容主题）：
+- 变现/ - 变现策略、商业化、IAP、广告变现
+- 用户留存/ - 用户留存、生命周期、留存优化
+- 用户获取/ - 用户获取、增长、UA、ROAS
+- 数据分析/ - 游戏数据分析、指标体系
+- 游戏设计/ - 游戏设计、玩法、超休闲
+- AI技术/ - AI 技术应用、LLM
+- 行业动态/ - 行业动态、市场趋势
+
+请分析每个学习源的描述，判断其与用户需求的相关性。
+返回 JSON 格式：
+{
+  \"matched_indices\": [0, 2, 5],
+  \"reasoning\": \"简要说明选择理由\"
+}
+
+只返回 JSON，不要其他内容。"
+
+    # 3. 调用 Claude 进行批量评估
+    local claude_response
+    claude_response=$(claude -p "$eval_prompt" \
+        --no-session-persistence \
+        --dangerously-skip-permissions \
+        --output-format stream-json \
+        2>/dev/null | jq -rj 'select(.type == "stream_event" and .event.delta.type? == "text_delta") | .event.delta.text' 2>/dev/null || echo "")
+
+    # 4. 解析匹配结果
+    if [ -z "$claude_response" ]; then
+        echo "⚠️ Claude 评估失败，将使用所有源" >&2
+        # 降级：返回所有源
+        while IFS='|' read -r category url description selector frequency || [ -n "$category" ]; do
+            [[ -z "$category" || "$category" =~ ^[[:space:]]*# ]] && continue
+            echo "$category|$url|$description|$selector|$frequency"
+        done < "$SOURCES_FILE"
+        return
+    fi
+
+    # 提取 JSON（处理可能的 markdown 代码块）
+    local matched_indices
+    matched_indices=$(echo "$claude_response" | sed 's/```json//;s/```//g' | jq -r '.matched_indices[]' 2>/dev/null || echo "")
+
+    if [ -z "$matched_indices" ]; then
+        echo "⚠️ 解析匹配结果失败，将使用所有源" >&2
+        while IFS='|' read -r category url description selector frequency || [ -n "$category" ]; do
+            [[ -z "$category" || "$category" =~ ^[[:space:]]*# ]] && continue
+            echo "$category|$url|$description|$selector|$frequency"
+        done < "$SOURCES_FILE"
+        return
+    fi
+
+    # 5. 根据匹配索引过滤源
+    echo "📋 智能匹配结果：" >&2
+    local current_index=0
+    while IFS='|' read -r category url description selector frequency || [ -n "$category" ]; do
+        [[ -z "$category" || "$category" =~ ^[[:space:]]*# ]] && continue
+
+        if echo "$matched_indices" | grep -q "^${current_index}$"; then
+            echo "  ✓ $description" >&2
+            echo "$category|$url|$description|$selector|$frequency"
+        fi
+        current_index=$((current_index + 1))
+    done < "$SOURCES_FILE"
 }
 
 # 发现具体文章链接
@@ -219,12 +327,14 @@ Co-Authored-By: AIBO Auto-Learner <aibo@aibo.dev>"
 # 读取学习源并过滤已学习的
 # 新格式: 分类|URL|描述|文章选择器|更新频率
 get_pending_sources() {
+    local source_file="${SMART_SOURCES_FILE:-$SOURCES_FILE}"
+
     while IFS='|' read -r category url description selector frequency || [ -n "$category" ]; do
         # 跳过空行和注释
         [[ -z "$category" || "$category" =~ ^[[:space:]]*# ]] && continue
 
-        # 如果指定了分类过滤，只匹配该分类
-        if [ -n "$CATEGORY_FILTER" ] && [ "$category" != "$CATEGORY_FILTER" ]; then
+        # 如果是固定分类过滤模式，只匹配该分类
+        if [ "$FILTER_TYPE" = "category" ] && [ "$category" != "$FILTER_INPUT" ]; then
             continue
         fi
 
@@ -232,8 +342,54 @@ get_pending_sources() {
         if ! is_url_learned "$url"; then
             echo "$category|$url|$description|$selector|$frequency"
         fi
-    done < "$SOURCES_FILE"
+    done < "$source_file"
 }
+
+# 判断过滤类型并执行智能过滤
+if [ -n "$FILTER_INPUT" ]; then
+    if is_fixed_category "$FILTER_INPUT"; then
+        FILTER_TYPE="category"
+        echo "📚 BMAD Learn Loop Started"
+        echo "Output: $OUTPUT_FILE"
+        echo "Sources: $SOURCES_FILE"
+        echo "Max rounds: $MAX_ROUNDS"
+        echo "📂 Category filter: $FILTER_INPUT"
+    else
+        FILTER_TYPE="smart"
+        echo "📚 BMAD Learn Loop Started"
+        echo "Output: $OUTPUT_FILE"
+        echo "Sources: $SOURCES_FILE"
+        echo "Max rounds: $MAX_ROUNDS"
+        echo "🧠 Smart filter: \"$FILTER_INPUT\""
+        echo ""
+
+        # 执行智能过滤
+        SMART_SOURCES_FILE=$(mktemp)
+        smart_filter_sources "$FILTER_INPUT" > "$SMART_SOURCES_FILE"
+
+        # 检查是否有匹配
+        if [ ! -s "$SMART_SOURCES_FILE" ]; then
+            echo ""
+            echo "❌ 没有找到与 \"$FILTER_INPUT\" 相关的学习源"
+            echo ""
+            echo "💡 建议："
+            echo "  - 尝试使用更通用的关键词"
+            echo "  - 查看可用分类：business, data, planning, tech, market"
+            echo "  - 示例提示词：'变现策略'、'用户留存'、'AI技术'"
+            exit 0
+        fi
+
+        matched_count=$(wc -l < "$SMART_SOURCES_FILE" | tr -d ' ')
+        echo ""
+        echo "✅ 找到 $matched_count 个相关学习源"
+    fi
+else
+    echo "📚 BMAD Learn Loop Started"
+    echo "Output: $OUTPUT_FILE"
+    echo "Sources: $SOURCES_FILE"
+    echo "Max rounds: $MAX_ROUNDS"
+    echo "Filter: all"
+fi
 
 # 主循环
 while [ $COUNT -lt $MAX_ROUNDS ]
