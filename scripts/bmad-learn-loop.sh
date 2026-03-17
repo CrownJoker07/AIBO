@@ -314,12 +314,14 @@ do
 1. 文档来源字段必须记录完整文章 URL: $ARTICLE_URL
 2. 使用当前日期 (2026年) 作为获取日期
 3. 如果文章中有原始发布日期，也要记录
+4. 学习完成后，将关键洞察沉淀到 docs/knowledge/$CATEGORY/知识沉淀.md
 
 处理流程：
 1. 获取 URL 内容
 2. 提取关键知识点
 3. 存储到对应分类目录
-4. 返回学习结果摘要（包含文章标题）"
+4. 沉淀关键洞察到知识沉淀文件
+5. 返回学习结果摘要（包含文章标题、知识点沉淀位置、新增知识点数量）"
 
         # 调用 Claude 执行学习
         ROUND_OUTPUT=$(claude -p "$BMAD_PROMPT" \
@@ -354,6 +356,10 @@ do
             echo '```'
             echo "$ROUND_OUTPUT"
             echo '```'
+            echo ""
+            echo "**知识沉淀**: docs/knowledge/$CATEGORY/知识沉淀.md"
+            echo ""
+            echo "---"
             echo ""
         } >> "$OUTPUT_FILE"
 
