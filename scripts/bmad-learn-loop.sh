@@ -229,21 +229,47 @@ discover_articles() {
     fi
 
     # 提取选择器中的 URL 模式
-    # 支持格式: "href*='/news/'" 或 "a[href*='/blog/']"
+    # 支持格式: "href*='/news/'" 或 "href*=\"/news/\"" 或 "data-url" 等
     local url_pattern
-    url_pattern=$(echo "$selector" | grep -oE "href\*='[^']+'" | sed "s/href\*='//;s/'//" || echo "")
+    url_pattern=$(echo "$selector" | grep -oE "href\*='[^']+'|href\*=\"[^\"]+\"|href='[^']+'|href=\"[^\"]+\"|data-url='[^']+'|data-url=\"[^\"]+\"" | \
+        sed -E "s/href\*='([^']+)'/\1/;s/href\*=\"([^\"]+)\"/\1/;s/href='([^']+)'/\1/;s/href=\"([^\"]+)\"/\1/;s/data-url='([^']+)'/\1/;s/data-url=\"([^\"]+)\"/\1/" | head -1 || echo "")
 
-    # 如果没有提取到模式，尝试从选择器中获取通用链接
+    # 如果没有提取到模式，尝试从选择器中获取路径片段
     if [ -z "$url_pattern" ]; then
-        url_pattern="/"
+        # 从 CSS 选择器中提取路径模式，如 "a[href*='/blog/']" -> "/blog/"
+        url_pattern=$(echo "$selector" | grep -oE "'[^']+'|\"[^\"]+\"" | tail -1 | sed "s/['\"]//g" || echo "")
     fi
 
-    # 提取匹配的链接
-    local articles
-    articles=$(echo "$html" | grep -oE "href=\"[^\"]*${url_pattern}[^\"]*\"" | \
-        sed 's/href="//;s/"//' | \
-        sort -u | \
-        head -n "$max_articles")
+    # 提取匹配的链接 - 支持多种 href 格式
+    local articles=""
+    local raw_links
+
+    echo "🔍 Using URL pattern: $url_pattern" >&2
+
+    # 尝试多种匹配模式
+    raw_links=$(echo "$html" | grep -oE "href=\"[^\"]*${url_pattern}[^\"]*\"|href='[^']*${url_pattern}[^']*'" | \
+        sed -E 's/href="//;s/href=.//;s/"//g' | \
+        sort -u)
+
+    # 如果没有匹配到，尝试回退：提取所有带 href 的链接再过滤
+    if [ -z "$raw_links" ] && [ -n "$url_pattern" ] && [ "$url_pattern" != "/" ]; then
+        echo "⚠️ Pattern didn't match, trying fallback..." >&2
+        raw_links=$(echo "$html" | grep -oE "href=\"[^\"]+\"|href='[^']+'" | \
+            sed -E 's/href="//;s/href=.//;s/"//g' | \
+            grep -E "${url_pattern}" | \
+            sort -u)
+    fi
+
+    articles=$(echo "$raw_links" | head -n "$max_articles")
+
+    # 显示发现的链接数量和样例
+    local article_count
+    article_count=$(echo "$articles" | grep -c . 2>/dev/null || echo "0")
+    echo "🔍 Found $article_count link(s)" >&2
+    if [ -n "$articles" ]; then
+        echo "🔍 Sample links:" >&2
+        echo "$articles" | head -3 | sed 's/^/   /' >&2
+    fi
 
     # 处理相对路径，转换为绝对路径
     local base_url
