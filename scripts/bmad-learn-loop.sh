@@ -365,6 +365,35 @@ get_pending_sources() {
             continue
         fi
 
+        # 智能过滤模式：从原始配置文件读取，检查是否有未学习的具体文章
+        if [ "$FILTER_TYPE" = "smart" ]; then
+            # 从原始配置文件获取该源的完整信息（包含选择器）
+            while IFS='|' read -r orig_category orig_url orig_selector _ || [ -n "$orig_category" ]; do
+                [[ -z "$orig_category" || "$orig_category" =~ ^[[:space:]]*# ]] && continue
+                if [ "$orig_url" = "$url" ]; then
+                    # 发现具体文章
+                    local articles
+                    articles=$(discover_articles "$url" "$orig_selector" 10 2>/dev/null)
+
+                    # 检查是否有未学习的文章
+                    local has_new_article=false
+                    while IFS= read -r article_url; do
+                        [ -z "$article_url" ] && continue
+                        if ! is_url_learned "$article_url"; then
+                            has_new_article=true
+                            break
+                        fi
+                    done <<< "$articles"
+
+                    if [ "$has_new_article" = true ]; then
+                        echo "$category|$url|$description|$orig_selector|$frequency"
+                    fi
+                    break
+                fi
+            done < "$SOURCES_FILE"
+            continue
+        fi
+
         # 跳过已学习的主页 URL
         if ! is_url_learned "$url"; then
             echo "$category|$url|$description|$selector|$frequency"
