@@ -140,6 +140,40 @@ is_fixed_category() {
     esac
 }
 
+# AI 判断子文件夹
+# 参数: $1 = 内容描述 (description)
+# 输出: 子文件夹名称，如果无匹配则返回空
+ai_detect_subfolder() {
+    local description=$1
+    local result
+
+    result=$(claude -p "根据以下内容描述，判断它应该归类到哪个子文件夹。
+只返回子文件夹名称，不要其他内容。如果没有合适的返回空。
+
+可用子文件夹：
+- 游戏设计（游戏设计、玩法、超休闲）
+- 变现（商业化、IAP、广告变现）
+- 用户留存（用户留存、生命周期）
+- 用户获取（增长、UA、ROAS）
+- 数据分析（指标、数据分析）
+- AI技术（LLM、人工智能）
+- 广告（AdMob）
+- 行业动态（市场趋势）
+- 开发（工程技术）
+- 算法（推荐系统）
+- 移动归因（归因）
+
+内容描述: $description
+
+只返回最合适的子文件夹名称，如果没有合适的返回空。" \
+        --no-session-persistence \
+        --dangerously-skip-permissions \
+        --output-format stream-json \
+        2>/dev/null | jq -rj 'select(.type == "result") | .result' 2>/dev/null | tr -d '\n' || echo "")
+
+    echo "$result"
+}
+
 # 智能过滤学习源
 # 参数: $1 = 用户提示词
 # 输出: 匹配的源列表（格式: category|url|description|selector|frequency）
@@ -358,74 +392,48 @@ discover_articles() {
 }
 
 # 根据关键词过滤文章
+# AI 过滤文章
 # 参数: $1 = 文章URL列表(换行分隔), $2 = 关键词
 # 输出: 过滤后的文章URL列表
-filter_articles_by_keyword() {
+ai_filter_articles() {
     local article_urls=$1
     local keyword=$2
 
     # 如果没有关键词或关键词为空，不过滤
     [ -z "$keyword" ] && echo "$article_urls" && return
 
-    echo "🔍 根据关键词 \"$keyword\" 过滤文章..." >&2
+    echo "🔍 AI 正在分析文章与 \"$keyword\" 的相关性..." >&2
 
-    local filtered_result=""
-    local url
-    while IFS= read -r url; do
-        [ -z "$url" ] && continue
+    # 将 URL 列表传给 AI，让 AI 批量获取标题并判断相关性
+    local result
+    result=$(claude -p "任务：判断以下 URL 列表中，哪些文章与主题 '$keyword' 相关。
 
-        # 获取文章标题（只获取前 5KB 的 HTML，提取 <title>）
-        local title
-        title=$(curl -sL -A "Mozilla/5.0 (compatible; AIBO-Learner/1.0)" \
-            --connect-timeout 5 \
-            --max-time 10 \
-            "$url" 2>/dev/null | \
-            grep -o '<title>[^<]*</title>' | \
-            head -1 | \
-            sed 's/<title>//;s/<\/title>//;s/[[:space:]]//g' || echo "")
+URL 列表：
+$article_urls
 
-        # 如果没有获取到标题，跳过这篇文章
-        if [ -z "$title" ]; then
-            echo "⚠️ 无法获取标题，跳过: $url" >&2
-            continue
-        fi
+请：
+1. 访问每个 URL 获取文章标题（最多 5 个）
+2. 判断每篇文章是否与主题相关（语义相关性，不只是关键词匹配）
+3. 只返回相关文章的 URL（每行一个，不要其他内容）
 
-        # 简单关键词匹配（不区分大小写）
-        local title_lower=$(echo "$title" | tr '[:upper:]' '[:lower:]')
-        local keyword_lower=$(echo "$keyword" | tr '[:upper:]' '[:lower:]')
+如果没有相关文章，返回空。" \
+        --no-session-persistence \
+        --dangerously-skip-permissions \
+        --output-format stream-json \
+        2>/dev/null | jq -rj 'select(.type == "result") | .result' 2>/dev/null || echo "")
 
-        # 检查标题是否包含关键词中的任意词
-        local matched=false
-        # 分词处理（按常见分隔符）
-        local IFS=' ,，-、'
-        for kw in $keyword_lower; do
-            if [ -n "$kw" ] && echo "$title_lower" | grep -q "$kw"; then
-                matched=true
-                break
-            fi
-        done
+    # 清理输出，只保留 URL（去除可能的 markdown 代码块标记）
+    result=$(echo "$result" | sed 's/```json//;s/```//g' | grep -E '^https?://' || echo "")
 
-        if [ "$matched" = true ]; then
-            echo "  ✓ 匹配: $title" >&2
-            if [ -n "$filtered_result" ]; then
-                filtered_result="${filtered_result}"$'\n'"${url}"
-            else
-                filtered_result="$url"
-            fi
-        else
-            echo "  ✗ 不匹配: $title" >&2
-        fi
-    done <<< "$article_urls"
-
-    if [ -z "$filtered_result" ]; then
-        echo "⚠️ 没有找到匹配的文章" >&2
+    if [ -z "$result" ]; then
+        echo "⚠️ 没有找到与 \"$keyword\" 相关的文章" >&2
     else
         local count
-        count=$(echo "$filtered_result" | grep -c . 2>/dev/null || echo "0")
-        echo "✅ 过滤后保留 $count 篇文章" >&2
+        count=$(echo "$result" | grep -c . 2>/dev/null || echo "0")
+        echo "✅ AI 筛选出 $count 篇相关文章" >&2
     fi
 
-    echo "$filtered_result"
+    echo "$result"
 }
 
 # 自动提交学习结果
@@ -634,7 +642,7 @@ do
 
     # 智能过滤模式：根据关键词过滤文章
     if [ "$FILTER_TYPE" = "smart" ] && [ -n "$FILTER_INPUT" ]; then
-        ARTICLE_URLS=$(filter_articles_by_keyword "$ARTICLE_URLS" "$FILTER_INPUT")
+        ARTICLE_URLS=$(ai_filter_articles "$ARTICLE_URLS" "$FILTER_INPUT")
     fi
 
     # 统计本轮文章数
@@ -675,27 +683,37 @@ do
         echo "---"
         echo "📄 Processing article: $ARTICLE_URL"
 
+        # 智能推断子文件夹
+        SUBFOLDER=$(ai_detect_subfolder "$DESCRIPTION")
+        if [ -n "$SUBFOLDER" ]; then
+            TARGET_DIR="docs/knowledge/$CATEGORY/$SUBFOLDER/"
+            echo "📂 检测到子文件夹: $SUBFOLDER"
+        else
+            TARGET_DIR="docs/knowledge/$CATEGORY/"
+        fi
+
         # 构建学习 prompt
         BMAD_PROMPT="/bmad-agent-autonomous-learner
 
 执行学习任务：
 - 分类: $CATEGORY
+- 子文件夹: ${SUBFOLDER:-无}
 - 来源: $ARTICLE_URL
 - 主页: $URL
 - 描述: $DESCRIPTION
 
-请使用 Learn 能力从该具体文章 URL 学习知识并存储到 docs/knowledge/$CATEGORY/ 目录。
+请使用 Learn 能力从该具体文章 URL 学习知识并存储到 ${TARGET_DIR} 目录。
 
 重要要求：
 1. 文档来源字段必须记录完整文章 URL: $ARTICLE_URL
 2. 使用当前日期 (2026年) 作为获取日期
 3. 如果文章中有原始发布日期，也要记录
-4. 学习完成后，将关键洞察沉淀到 docs/knowledge/$CATEGORY/知识沉淀.md
+4. 学习完成后，将关键洞察沉淀到 ${TARGET_DIR}知识沉淀.md
 
 处理流程：
 1. 获取 URL 内容
 2. 提取关键知识点
-3. 存储到对应分类目录
+3. 存储到对应分类目录（如果有子文件夹要求，请放到子文件夹中）
 4. 沉淀关键洞察到知识沉淀文件
 5. 返回学习结果摘要（包含文章标题、知识点沉淀位置、新增知识点数量）"
 
