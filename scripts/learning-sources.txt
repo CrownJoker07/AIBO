@@ -3,32 +3,35 @@
 # 学习源配置文件
 # ============================================
 #
-# 格式: 分类|URL|描述
+# 格式: 分类|URL|描述|文章选择器|更新频率
 # 分类: business | data | planning | tech | market
+# 文章选择器: CSS选择器，用于从主页提取具体文章链接
+# 更新频率: daily | weekly | monthly
 #
 # 示例:
-# business|https://example.com/article|商业策略文章
-# tech|https://example.com/blog|技术博客
+# business|https://example.com/|商业新闻|article a|daily
+# tech|https://example.com/blog|技术博客|.post-title a|weekly
 # ============================================
 
 # ============ 商业知识 (business) ============
 # 游戏行业
-business|https://www.pocketgamer.biz/|移动游戏行业新闻与商业分析
-business|https://gameanalytics.com/blog/|游戏数据分析与变现策略
-business|https://www.deconstructoroffun.com/|游戏设计深度分析与行业洞察
-business|https://sensortower.com/blog|移动应用市场情报与游戏行业报告
+business|https://www.pocketgamer.biz/|移动游戏行业新闻与商业分析|article a[href*='/news/']|daily
+business|https://gameanalytics.com/blog/|游戏数据分析与变现策略|.post-title a|weekly
+business|https://www.deconstructoroffun.com/|游戏设计深度分析与行业洞察|article a[href*='/p/']|weekly
+business|https://sensortower.com/blog|移动应用市场情报与游戏行业报告|a[href*='/blog/']|weekly
 
 # AI行业
-business|https://venturebeat.com/category/ai/|AI行业新闻与企业应用分析
-business|https://www.artificialintelligence-news.com/|人工智能行业动态与商业策略
-business|https://www.ben-evans.com/benedictevans|AI与科技行业战略分析
-business|https://stratechery.com/|科技与AI商业模式深度分析
+business|https://venturebeat.com/category/ai/|AI行业新闻与企业应用分析|article a[href*='/ai/']|daily
+business|https://www.artificialintelligence-news.com/|人工智能行业动态与商业策略|article a[href*='/news/']|daily
+business|https://www.ben-evans.com/benedictevans|AI与科技行业战略分析|a[href*='/benedictevans/']|weekly
+business|https://stratechery.com/|科技与AI商业模式深度分析|article a[href*='/essays/']|weekly
 
 # ============ 技术文档 (tech) ============
-tech|https://gameprogrammingpatterns.com/|游戏编程模式书籍
-tech|https://refactoring.guru/design-patterns|设计模式教程
-tech|https://docs.unity3d.com/Manual/index.html|Unity官方文档
-tech|https://mp.weixin.qq.com/s/3UUCWUzZyiHJC1MHk7-kDg|Kimi注意力残差技术：用注意力替代残差连接
+# 静态资源（无选择器，直接学习）
+tech|https://gameprogrammingpatterns.com/|游戏编程模式书籍||once
+tech|https://refactoring.guru/design-patterns|设计模式教程||once
+tech|https://docs.unity3d.com/Manual/index.html|Unity官方文档||once
+tech|https://mp.weixin.qq.com/s/3UUCWUzZyiHJC1MHk7-kDg|Kimi注意力残差技术：用注意力替代残差连接||once
 
 # ============ 市场分析 (market) ============
 # 待添加市场分析资源
