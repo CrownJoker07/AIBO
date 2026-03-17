@@ -1,0 +1,27 @@
+# ============================================
+# BMAD Learning Sources Configuration
+# 学习源配置文件
+# ============================================
+#
+# 格式: 分类|URL|描述
+# 分类: business | data | planning | tech | market
+#
+# 示例:
+# business|https://example.com/article|商业策略文章
+# tech|https://example.com/blog|技术博客
+# ============================================
+
+# ============ 商业知识 (business) ============
+# business|https://example.com/business-article|商业策略文章
+
+# ============ 数据分析 (data) ============
+# data|https://example.com/data-article|数据分析文章
+
+# ============ 规划文档 (planning) ============
+# planning|https://example.com/planning-article|产品规划文章
+
+# ============ 技术文档 (tech) ============
+# tech|https://example.com/tech-article|技术博客
+
+# ============ 市场分析 (market) ============
+# market|https://example.com/market-article|市场分析文章
