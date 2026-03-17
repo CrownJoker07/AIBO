@@ -1,50 +1,71 @@
 # Business 知识库索引
 
-## 根目录文档
+> 休闲游戏项目业务知识库，聚焦游戏运营、变现、用户增长等领域
 
-- **[game-analytics-monetization-strategy.md](./game-analytics-monetization-strategy.md)** - AnalyticsIQ 游戏数据分析与变现策略核心指南
-- **[game-analytics-acquisition-strategy.md](./game-analytics-acquisition-strategy.md)** - AnalyticsIQ 用户获取策略指南，UA优化与ROAS分析
-- **[game-analytics-engagement-retention-strategy.md](./game-analytics-engagement-retention-strategy.md)** - AnalyticsIQ 用户参与与留存策略指南，漏斗分析与功能采用
+---
 
-## AI 行业动态（2026-03）
+## 变现/
 
-- **[abb-physical-ai-simulation.md](./abb-physical-ai-simulation.md)** - ABB 与 NVIDIA 合作：物理 AI 仿真提升工厂自动化 ROI
-- **[agentic-ai-finance-automation.md](./agentic-ai-finance-automation.md)** - SEI 与 IBM 合作：Agentic AI 加速金融运营自动化
-- **[ai2-molmobot-virtual-simulation.md](./ai2-molmobot-virtual-simulation.md)** - Ai2 MolmoBot：用虚拟仿真数据构建物理 AI
-- **[plumery-ai-banking-integration.md](./plumery-ai-banking-integration.md)** - Plumery AI Fabric：银行 AI 标准化集成框架
-- **[bmw-humanoid-robots-manufacturing.md](./bmw-humanoid-robots-manufacturing.md)** - BMW 人形机器人在欧洲制造业的首次部署
+| 文档 | 描述 |
+|------|------|
+| [游戏数据分析与变现策略](./变现/2026-03-17-游戏数据分析与变现策略.md) | AnalyticsIQ 游戏数据分析与变现策略核心指南 |
+| [IAP 付费转化优化](./变现/iap-conversion-optimization.md) | IAP 付费转化优化策略与核心指标 |
 
-## Benedict Evans AI 战略分析
+## 用户留存/
 
-- **[benedict-evans-ai-summer.md](./benedict-evans-ai-summer.md)** - The AI Summer：LLM 产品市场契合度困境（2024-07）
-- **[benedict-evans-competing-search.md](./benedict-evans-competing-search.md)** - Competing in Search：搜索竞争与垄断分析（2024-08）
-- **[benedict-evans-better-models.md](./benedict-evans-better-models.md)** - The Problem with Better Models：更好模型的困境（2025-01）
-- **[benedict-evans-deep-research.md](./benedict-evans-deep-research.md)** - The Deep Research Problem：深度研究的局限（2025-02）
-- **[benedict-evans-ai-networks.md](./benedict-evans-ai-networks.md)** - AI, Networks and Mechanical Turks：AI 与网络效应（2025-11）
+| 文档 | 描述 |
+|------|------|
+| [游戏用户参与与留存策略](./用户留存/2026-03-17-游戏用户参与与留存策略.md) | AnalyticsIQ 用户参与与留存策略指南，漏斗分析与功能采用 |
+| [游戏留存策略](./用户留存/game-retention-strategies.md) | IAA 小游戏六大留存策略 |
+| [留存率基准](./用户留存/retention-benchmarks.md) | 移动游戏留存率基准（按类型分类） |
 
-## analytics/
+## 用户获取/
 
-- **[gameanalytics-blog-insights.md](./analytics/gameanalytics-blog-insights.md)** - GameAnalytics 博客核心洞察：A/B测试、用户获取、变现策略
+| 文档 | 描述 |
+|------|------|
+| [游戏用户获取策略](./用户获取/2026-03-17-游戏用户获取策略.md) | AnalyticsIQ 用户获取策略指南，UA优化与ROAS分析 |
 
-## advertising/
+## 数据分析/
 
-- **[advertising-analytics-guide.md](./advertising/advertising-analytics-guide.md)** - 游戏广告投放数据分析指南，核心指标体系
-- **[casual-game-advertising-analytics.md](./advertising/casual-game-advertising-analytics.md)** - 休闲游戏广告投放分析，对比中重度游戏差异
+| 文档 | 描述 |
+|------|------|
+| [GameAnalytics 博客洞察](./数据分析/gameanalytics-blog-insights.md) | GameAnalytics 博客核心洞察：A/B测试、用户获取、变现策略 |
 
-## algorithm/
+## 广告/
 
-- **[hotness-recommendation-algorithm.md](./algorithm/hotness-recommendation-algorithm.md)** - 热度算法和个性化推荐算法原理
+| 文档 | 描述 |
+|------|------|
+| [广告投放数据分析指南](./广告/advertising-analytics-guide.md) | 游戏广告投放数据分析指南，核心指标体系 |
+| [休闲游戏广告投放分析](./广告/casual-game-advertising-analytics.md) | 休闲游戏广告投放分析，对比中重度游戏差异 |
 
-## development/
+## 开发/
 
-- **[hyper-casual-game-design.md](./development/hyper-casual-game-design.md)** - 超休闲游戏设计与用户获取最佳实践
-- **[train-miner-development-philosophy.md](./development/train-miner-development-philosophy.md)** - Train Miner 开发经验，感觉比数据更重要
+| 文档 | 描述 |
+|------|------|
+| [超休闲游戏设计](./开发/hyper-casual-game-design.md) | 超休闲游戏设计与用户获取最佳实践 |
+| [Train Miner 开发哲学](./开发/train-miner-development-philosophy.md) | Train Miner 开发经验，感觉比数据更重要 |
 
-## monetization/
+## 算法/
 
-- **[iap-conversion-optimization.md](./monetization/iap-conversion-optimization.md)** - IAP 付费转化优化策略与核心指标
+| 文档 | 描述 |
+|------|------|
+| [热度推荐算法](./算法/hotness-recommendation-algorithm.md) | 热度算法和个性化推荐算法原理 |
 
-## retention/
+## AI技术/
 
-- **[game-retention-strategies.md](./retention/game-retention-strategies.md)** - IAA 小游戏六大留存策略
-- **[retention-benchmarks.md](./retention/retention-benchmarks.md)** - 移动游戏留存率基准（按类型分类）
+| 文档 | 描述 |
+|------|------|
+| [AI产品市场契合度困境](./AI技术/2024-07-09-AI产品市场契合度困境.md) | The AI Summer：LLM 产品市场契合度困境（2024-07） |
+| [搜索竞争分析](./AI技术/2024-08-19-搜索竞争分析.md) | Competing in Search：搜索竞争与垄断分析（2024-08） |
+| [搜索竞争分析完整版](./AI技术/2024-08-19-搜索竞争分析完整版.md) | 搜索竞争深度分析（2024-08） |
+| [更好模型的困境](./AI技术/2025-01-22-更好模型的困境.md) | The Problem with Better Models：更好模型的困境（2025-01） |
+| [深度研究的局限](./AI技术/2025-02-18-深度研究的局限.md) | The Deep Research Problem：深度研究的局限（2025-02） |
+| [AI网络与人工服务](./AI技术/2025-11-23-AI网络与人工服务.md) | AI, Networks and Mechanical Turks：AI 与网络效应（2025-11） |
+
+---
+
+## 空目录
+
+以下目录暂无内容：
+- `汇总/` - 知识汇总
+- `行业动态/` - 行业新闻与动态
