@@ -132,10 +132,10 @@ is_url_learned() {
     grep -qF "$1" "$LEARNED_FILE" 2>/dev/null
 }
 
-# 判断是否为固定分类
+# 判断是否为固定分类（2026年职能架构）
 is_fixed_category() {
     case "$1" in
-        business|data|planning|tech|market) return 0 ;;
+        产品|运营|商业化|数据|技术|质量|商务|行业) return 0 ;;
         *) return 1 ;;
     esac
 }
