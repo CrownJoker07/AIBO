@@ -26,8 +26,36 @@ FILTER_INPUT=${2:-}  # 可选：分类名或自然语言提示词
 SLEEP_INTERVAL=${SLEEP_INTERVAL:-5}
 MAX_SOURCE_FAILURES=2  # 单个源最大连续失败次数，超过后切换到下一个源
 
-# 追踪每个源的连续失败次数（URL -> 失败次数）
-declare -A SOURCE_FAILURES
+# 失败计数文件（因为 macOS bash 不支持关联数组）
+FAILURE_COUNT_FILE=".bmad-source-failures.txt"
+
+# 获取源的失败次数
+get_failure_count() {
+    local url=$1
+    grep "^${url}$" "$FAILURE_COUNT_FILE" 2>/dev/null | cut -d'|' -f2 || echo "0"
+}
+
+# 增加源的失败次数
+increment_failure() {
+    local url=$1
+    local count=$(get_failure_count "$url")
+    count=$((count + 1))
+    # 删除旧记录
+    grep -v "^${url}|" "$FAILURE_COUNT_FILE" 2>/dev/null > "${FAILURE_COUNT_FILE}.tmp" 2>/dev/null || true
+    mv "${FAILURE_COUNT_FILE}.tmp" "$FAILURE_COUNT_FILE" 2>/dev/null || true
+    # 添加新记录
+    echo "${url}|${count}" >> "$FAILURE_COUNT_FILE"
+}
+
+# 重置源的失败次数
+reset_failure() {
+    local url=$1
+    grep -v "^${url}|" "$FAILURE_COUNT_FILE" 2>/dev/null > "${FAILURE_COUNT_FILE}.tmp" 2>/dev/null || true
+    mv "${FAILURE_COUNT_FILE}.tmp" "$FAILURE_COUNT_FILE" 2>/dev/null || true
+}
+
+# 初始化失败计数文件
+touch "$FAILURE_COUNT_FILE"
 
 # 当前源索引（用于轮询）
 CURRENT_SOURCE_INDEX=0
@@ -464,30 +492,15 @@ get_pending_sources() {
             continue
         fi
 
-        # 智能过滤模式：从原始配置文件读取，检查是否有未学习的具体文章
+        # 智能过滤模式：从原始配置文件读取，返回所有匹配的源
+        # 注意：不在这里预检查是否有新文章，由主循环处理
         if [ "$FILTER_TYPE" = "smart" ]; then
             # 从原始配置文件获取该源的完整信息（包含选择器）
             # 格式: 分类|URL|描述|选择器|频率
             while IFS='|' read -r orig_category orig_url orig_description orig_selector orig_frequency || [ -n "$orig_category" ]; do
                 [[ -z "$orig_category" || "$orig_category" =~ ^[[:space:]]*# ]] && continue
                 if [ "$orig_url" = "$url" ]; then
-                    # 发现具体文章
-                    local articles
-                    articles=$(discover_articles "$url" "$orig_selector" 10 2>/dev/null)
-
-                    # 检查是否有未学习的文章
-                    local has_new_article=false
-                    while IFS= read -r article_url; do
-                        [ -z "$article_url" ] && continue
-                        if ! is_url_learned "$article_url"; then
-                            has_new_article=true
-                            break
-                        fi
-                    done <<< "$articles"
-
-                    if [ "$has_new_article" = true ]; then
-                        echo "$category|$url|$description|$orig_selector|$frequency"
-                    fi
+                    echo "$category|$url|$description|$orig_selector|$frequency"
                     break
                 fi
             done < "$SOURCES_FILE"
@@ -573,7 +586,7 @@ do
         URL=$(echo "$CURRENT_SOURCE" | cut -d'|' -f2 2>/dev/null || echo "")
 
         # 检查当前源是否连续失败过多
-        FAIL_COUNT=${SOURCE_FAILURES[$URL]:-0}
+        FAIL_COUNT=$(get_failure_count "$URL")
         if [ $FAIL_COUNT -lt $MAX_SOURCE_FAILURES ]; then
             break  # 当前源可以尝试
         fi
@@ -586,9 +599,7 @@ do
     if [ -z "$CURRENT_SOURCE" ]; then
         echo "⚠️ 所有源都连续失败过多，重置失败计数..."
         # 重置所有失败计数
-        for key in "${!SOURCE_FAILURES[@]}"; do
-            SOURCE_FAILURES[$key]=0
-        done
+        > "$FAILURE_COUNT_FILE"
         CURRENT_SOURCE_INDEX=0
         CURRENT_SOURCE=$(echo "$PENDING" | head -1)
     fi
@@ -616,7 +627,7 @@ do
     if [ -z "$ARTICLE_URLS" ]; then
         echo "⚠️ No articles found, skipping..."
         # 增加失败计数
-        SOURCE_FAILURES[$URL]=$((${SOURCE_FAILURES[$URL]:-0} + 1))
+        increment_failure "$URL"
         CURRENT_SOURCE_INDEX=$(( (CURRENT_SOURCE_INDEX + 1) % TOTAL_SOURCES ))
         continue
     fi
@@ -641,7 +652,7 @@ do
     if [ $AVAILABLE_ARTICLES -eq 0 ]; then
         echo "⚠️ 没有可学习的新文章（全部已学习或过滤掉）"
         # 增加失败计数
-        SOURCE_FAILURES[$URL]=$((${SOURCE_FAILURES[$URL]:-0} + 1))
+        increment_failure "$URL"
         CURRENT_SOURCE_INDEX=$(( (CURRENT_SOURCE_INDEX + 1) % TOTAL_SOURCES ))
         continue
     fi
@@ -745,14 +756,14 @@ do
         echo ""
         echo "✅ Round $COUNT finished: $ARTICLES_LEARNED article(s) learned"
         # 成功后重置该源的失败计数
-        SOURCE_FAILURES[$URL]=0
+        reset_failure "$URL"
         # 切换到下一个源
         CURRENT_SOURCE_INDEX=$(( (CURRENT_SOURCE_INDEX + 1) % TOTAL_SOURCES ))
     else
         echo ""
         echo "ℹ️ Round $COUNT: No new articles to learn"
         # 增加失败计数
-        SOURCE_FAILURES[$URL]=$((${SOURCE_FAILURES[$URL]:-0} + 1))
+        increment_failure "$URL"
         # 切换到下一个源
         CURRENT_SOURCE_INDEX=$(( (CURRENT_SOURCE_INDEX + 1) % TOTAL_SOURCES ))
     fi
