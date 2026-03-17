@@ -1,0 +1,142 @@
+# Competing in Search：搜索竞争与垄断分析
+
+## 元数据
+
+- **来源**: https://www.ben-evans.com/benedictevans/2024/8/19/competing-in-search
+- **作者**: Benedict Evans
+- **发布日期**: 2024-08-18
+- **获取日期**: 2026-03-17
+- **分类**: AI商业策略、搜索竞争、反垄断、网络效应
+
+## 核心要点
+
+搜索是一个巨大的"机械土耳其人"——一个强化学习引擎，使用人类活动来理解网络。Google 的主导地位建立在网络效应之上，而 2024 年的反垄断裁决将如何改变格局仍不明朗。
+
+## 关键数据
+
+| 指标 | 数值 |
+|------|------|
+| Google 2022 年付给 Apple | ~$200 亿（Apple 运营收入 17.5%） |
+| Google 付给其他公司 | ~$100 亿 |
+| TAC 占 Google 搜索广告收入 | ~20% |
+| Bing 美国搜索份额 | 5% |
+| Apple 自建搜索估算成本 | $60 亿/年 |
+
+## 搜索的本质
+
+### 强化学习引擎
+
+搜索引擎的核心机制：
+1. **PageRank**：最初使用人工创建的链接信号
+2. **用户行为数据**：点击结果、修改搜索、前后搜索内容
+3. **广告数据**：越多广告 → 越了解哪些广告有效 → 越高每查询收入
+
+### 双重良性循环
+
+**循环 1 - 质量驱动**：
+```
+用户使用 Google → 更多查询数据 → 更好结果 → 更多用户使用
+```
+
+**循环 2 - 默认驱动**：
+```
+Google 是默认 → 付费成为默认 → 更好 + 有钱付费 → 是默认
+```
+
+## 市场格局分析
+
+### 默认搜索引擎分布（美国）
+
+| 渠道 | 查询份额 | 备注 |
+|------|----------|------|
+| Apple 设备 | 28% | Google 有合同 |
+| Android | 19.4% | OEM/运营商决定默认 |
+| 其他浏览器 | 2.3% | 如 Mozilla |
+| 用户下载 Chrome (PC) | 20% | |
+| 其他 | ~30% | |
+
+**有趣细节**：Google 即使在 Apple 设备上的 Chrome 搜索也要付钱给 Apple
+
+### Bing 的困境
+
+Microsoft 投入 $1000 亿仍只有 5% 份额：
+- 卡在良性循环的错误一边
+- 每查询收入更低
+- 结果质量更差
+
+> "There was 'no price that Microsoft could ever offer' to make the switch, because of Bing's inferior quality... 'They offered to give us Bing for free. They could give us the whole company.'"
+> — Eddie Cue, Apple
+
+## 反垄断裁决影响
+
+### 已确定事项
+
+1. **TAC 支付非法**：默认交易合同将被终止
+2. **广告价格操纵**：Google 利用主导地位提高搜索广告价格
+
+### 不确定事项
+
+1. **选择屏幕有效性**：欧盟 Android 强制选择屏幕似乎效果有限
+2. **Apple 选择**：没有 Google 付款，Apple 会选什么？
+3. **Android OEM 选择**：Samsung/Motorola 会如何反应？
+4. **Chrome 独立**：如果剥离，会选择什么默认？
+
+### Apple 的困境
+
+**自建搜索的考量**：
+- 唯一有资金和分发能力的公司
+- 可以立即获得 30% 美国搜索量
+- 但需要投入数十亿美元和数千工程师
+- 与隐私品牌冲突（Google 默认保留 18 个月搜索历史）
+
+**Tim Cook 的标准**：
+> "The question is whether Apple could combine technology and experience to solve an important problem in a new way."
+
+仅仅获得一个 Apple 版 Bing 不解决任何问题。
+
+## LLM 对搜索的影响
+
+### 可能的颠覆路径
+
+1. **更好的结果**：LLM 可能产生更好/不同的结果
+2. **新界面**：对话式交互
+3. **市场进入点**：说服用户切换的新机会
+
+### 怀疑观点
+
+- "幻觉"率意味着 LLM 搜索需要大量前/后处理
+- 这可能最适合现有玩家（Google）来做
+- 但没有人真正知道
+
+### Apple Siri 集成
+
+2024 年冬季 Apple 将推出新 Siri：
+- 可以将某些问题发送给"世界模型"
+- 最初是 ChatGPT，但可以是 Gemini、Claude、Llama 或 Apple 自己的模型
+- Craig Federighi 将此与 Safari 的 Google 集成相比
+
+## 历史启示
+
+### 打破垄断的真正方式
+
+> "Once a company has won, and network effects have become self-perpetuating and insurmountable, then you don't beat that by making the same thing but slightly better, and getting a judge to give you an entry point. You win by making the old thing irrelevant."
+
+| 公司 | 没有做什么 |
+|------|-----------|
+| Google | 更好的 PC 操作系统或 Office 套件 |
+| Facebook | 更好的搜索 |
+| Apple | 更好的黑莓 |
+| OpenAI | 没有找法官就获得 1 亿用户 |
+
+## 战略启示
+
+1. **网络效应难以打破**：同样的产品稍好一点不够
+2. **默认很重要**：50% 搜索发生在 Google 有默认合同的渠道
+3. **LLM 是变量**：可能改变游戏规则，也可能不会
+4. **用户惰性**：大多数用户不会更改默认，除非默认明显更差
+
+## 延伸阅读
+
+- [The AI Summer](./benedict-evans-ai-summer.md)
+- [AI, Networks and Mechanical Turks](./benedict-evans-ai-networks.md)
+- Benedict Evans 博客: https://www.ben-evans.com

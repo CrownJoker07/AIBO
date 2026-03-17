@@ -1,0 +1,158 @@
+# The Problem with Better Models：更好模型的困境
+
+## 元数据
+
+- **来源**: https://www.ben-evans.com/benedictevans/2025/1/the-problem-with-better-models
+- **作者**: Benedict Evans
+- **发布日期**: 2025-01-22
+- **获取日期**: 2026-03-17
+- **分类**: AI商业策略、LLM局限性、产品市场契合度
+
+## 核心要点
+
+每周都有"更好的"AI 模型出现，但很多问题没有"更好"的答案，只有"正确"的答案，而这些模型无法做到。那么"更好"意味着什么？我们如何管理这些问题？
+
+## 核心概念
+
+### 两类任务的差异
+
+| 类型 | 特点 | 例子 |
+|------|------|------|
+| **渐进式** | 质量是主观的，"更好"是光谱 | 创意写作、营销文案、代码建议 |
+| **二元式** | 只有"对"或"错"，没有"更好" | 数据检索、事实查询、精确计算 |
+
+### LLM 的本质
+
+> "These models don't do 'right'. They are probabilistic, statistical systems that tell you what a good answer would probably look like. They are not deterministic systems that tell you what the answer is."
+
+LLM 不"知道"或"理解"——它们**近似**。
+
+## 早期产品市场契合度领域
+
+### 为什么是代码和营销？
+
+**共同特点**：
+1. **错误容易发现**：代码可以测试，营销文案可以审核
+2. **没有"错误"答案**：创意工作没有唯一正确答案
+3. **领域专家可以验证**：用户自己能发现问题
+
+> "I always used to compare the last wave of machine learning to 'infinite interns.' If you have 100 interns, you can ask them to do a bunch of work, and you would need to check the results and some of the results would be bad, but that would still be much better than having to do all of the work yourself from scratch."
+
+## 实验案例：电梯操作员数据
+
+### 测试问题
+
+**问题**：1980 年美国有多少电梯操作员？
+
+**正确答案**：21,982（美国人口普查 PDF 第 17 页）
+
+### 测试结果
+
+| 方法 | 结果 |
+|------|------|
+| 直接问 ChatGPT 4o | 具体、无来源、**错误** |
+| 提供主要来源 | 不同错误答案 + 来源列表（确实链接正确 PDF） |
+| 提供实际 PDF | 仍然错误 |
+| 解释 PDF 具体位置 | 仍然错误 |
+| 让它浏览网页 | 仍然错误 |
+
+### 核心问题
+
+不是数字错误，而是**无法知道**——除非自己重新做所有工作。
+
+> "I don't need an answer that's perhaps more likely to be right, especially if I can't tell. I need an answer that is right."
+
+## "更好"模型的理论问题
+
+### Zeno 悖论
+
+LLM 能否达到 100% 正确？
+
+| 可能性 | 描述 |
+|--------|------|
+| **涌现理解** | 随着规模扩大，"理解"自发涌现 |
+| **无限接近** | 像芝诺悖论，永远达不到但收敛到 99.99% |
+| **理论突破** | 需要未知的理论突破 |
+| **O3 推理** | OpenAI O3 的"推理"可能是路径 |
+
+**关键点**：我们**不知道**，也没有理论框架能告诉我们。
+
+### 错误率 vs 产品设计
+
+**两种产品方向**：
+1. **假设模型会出错**：构建管理错误率的产品
+2. **假设模型将完美**：构建依赖模型本身的产品
+
+这是**完全不同**的产品方向。
+
+## 架构选择
+
+### LLM 在技术栈中的位置
+
+**当前主流**：
+```
+传统确定性软件 → LLM 作为 API 调用 → 管理错误率
+```
+
+**未来可能**：
+```
+LLM 在栈顶 → 控制确定性系统 → "Agentic" 系统
+```
+
+> "The LLM tells SAP what queries to run... The LLM turns everything else into an API call."
+
+## 颠覆理论
+
+### Christensen 的颠覆框架
+
+新技术的特点：
+- **在上一代技术看重的事情上表现糟糕**
+- **但做了其他重要的事情**
+- 那个"其他的事情"更重要，吸引投资和创新
+
+**历史案例**：
+| 技术 | 最初"坏"的地方 | 真正价值 |
+|------|---------------|----------|
+| Apple II | 无法匹配大型机正常运行时间 | 个人计算 |
+| Netscape | 无法运行 Photoshop | 网络浏览 |
+| LLM | 无法精确信息检索 | ??? |
+
+### 关键问题
+
+> "What is that 'something else' for generative AI? How do you think conceptually about places where that error rate is a feature, not a bug?"
+
+机器学习最初看起来像图像识别，但真正的思考方式是**模式识别**。
+
+生成式 AI 的"本质"是什么？没有人真正弄清楚。
+
+## 期望转变
+
+### Motorola 会议启示（2005）
+
+**iPod 微硬盘问题**：
+- 掉落会损坏
+- iPod 掉落损坏 → 用户怪自己
+- 手机掉落损坏 → 用户怪厂商
+
+**Apple 的解决**：
+1. Nano 切换到闪存（不会损坏）
+2. 但 iPhone 仍然会损坏，用户接受
+
+**教训**：我们接受了一个会掉坏、电池只管一天的设备，换取了新东西。我们移动了期望。
+
+### 对 AI 的启示
+
+> "After 50 years of consumer computing, we have been trained to expect computers to be 'right' - to be predictable, deterministic systems. But if you flip that expectation, what do you get in return?"
+
+## 战略启示
+
+1. **不要用 LLM 做 SQL 的工作**：它是概率系统，不是确定性系统
+2. **管理错误率是关键**：将 LLM 包装在确定性软件中
+3. **"更好"不是目标**：从 85% 到 85.5% 准确率没有帮助
+4. **找到错误率是特性而非缺陷的场景**
+
+## 延伸阅读
+
+- [The AI Summer](./benedict-evans-ai-summer.md)
+- [Deep Research 问题](./benedict-evans-deep-research.md)
+- Benedict Evans 博客: https://www.ben-evans.com

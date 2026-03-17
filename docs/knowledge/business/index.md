@@ -14,6 +14,14 @@
 - **[plumery-ai-banking-integration.md](./plumery-ai-banking-integration.md)** - Plumery AI Fabric：银行 AI 标准化集成框架
 - **[bmw-humanoid-robots-manufacturing.md](./bmw-humanoid-robots-manufacturing.md)** - BMW 人形机器人在欧洲制造业的首次部署
 
+## Benedict Evans AI 战略分析
+
+- **[benedict-evans-ai-summer.md](./benedict-evans-ai-summer.md)** - The AI Summer：LLM 产品市场契合度困境（2024-07）
+- **[benedict-evans-competing-search.md](./benedict-evans-competing-search.md)** - Competing in Search：搜索竞争与垄断分析（2024-08）
+- **[benedict-evans-better-models.md](./benedict-evans-better-models.md)** - The Problem with Better Models：更好模型的困境（2025-01）
+- **[benedict-evans-deep-research.md](./benedict-evans-deep-research.md)** - The Deep Research Problem：深度研究的局限（2025-02）
+- **[benedict-evans-ai-networks.md](./benedict-evans-ai-networks.md)** - AI, Networks and Mechanical Turks：AI 与网络效应（2025-11）
+
 ## analytics/
 
 - **[gameanalytics-blog-insights.md](./analytics/gameanalytics-blog-insights.md)** - GameAnalytics 博客核心洞察：A/B测试、用户获取、变现策略

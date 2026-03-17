@@ -1,0 +1,171 @@
+# AI, Networks and Mechanical Turks：AI 与网络效应
+
+## 元数据
+
+- **来源**: https://www.ben-evans.com/benedictevans/2025/11/23/ai-networks-and-mechanical-turks
+- **作者**: Benedict Evans
+- **发布日期**: 2025-11-23
+- **获取日期**: 2026-03-17
+- **分类**: AI商业策略、推荐系统、网络效应
+
+## 核心要点
+
+LLM 是否为搜索和推荐系统带来了质的飞跃？是否让你无需庞大的用户群就能构建这样的系统？
+
+## Mechanical Turk 模式
+
+### 互联网系统的本质
+
+任何有规模的消费者互联网系统都部分是"机械土耳其人"：
+- 观察用户行为
+- 从中得出结论
+- 持续优化
+
+**例子**：
+- Amazon：买了 X 的人可能买 Y
+- Google：你搜索了什么，点击了什么，接下来搜索什么
+
+### 传统系统的局限
+
+**它们不知道"为什么"**：
+- 不知道你为什么看那些视频
+- 不知道你为什么买那些东西
+- 不知道那些东西"是什么"
+
+**Amazon 的情况**：
+- 近 10 亿 SKU
+- 只知道人类输入的元数据
+- 只有购买相关性
+
+> "These systems have correlation across SKUs, and down the funnel, but they don't know why, just as a dog knows that the sound of door keys has high correlation with a walk, but doesn't know what keys are."
+
+## LLM 的质变
+
+### "What" 和 "Why" 的理解
+
+LLM 带来的变化：
+
+| 传统系统 | LLM 增强系统 |
+|----------|-------------|
+| "你看了追车视频，这里有追车视频" | 理解视频内容和上下文 |
+| 购买相关性（胶带 → 气泡膜） | 场景理解（搬家 → 保险、宽带广告） |
+| 基于 SKU 关联 | 基于语义理解 |
+
+### 新的推荐可能性
+
+**搬家场景**：
+- 传统：买胶带 → 推荐气泡膜
+- LLM：买胶带 + 气泡膜 → 可能搬家 → 推荐灯泡、烟雾探测器、**房屋保险、宽带**
+
+**关键洞察**：这些推荐无法仅从 Amazon 购买数据推断。
+
+## 冷启动问题的解决方案
+
+### 传统冷启动困境
+
+```
+需要用户 → 才能有推荐 → 才能获得用户
+```
+
+这是网络效应和机器学习创业公司都面临的问题。
+
+### LLM 的突破可能性
+
+**你可以"租用"冷启动**：
+
+| 传统方式 | LLM 方式 |
+|----------|----------|
+| 需要自己的用户行为数据 | 通用 LLM 的 API 调用 |
+| 在 Amazon/TikTok 上观察用户 | 训练数据来自过去几百年的人类知识 |
+| 自己构建 Mechanical Turk | 人类在训练数据创建中 |
+
+**转变**：移动"人在回路"的位置——现在人类和机械土耳其人在所有训练数据的创建中。
+
+## 用户理解的竞争格局
+
+### "盲人摸象"问题
+
+各平台对你的了解都是局部的：
+
+| 平台 | 知道什么 |
+|------|----------|
+| Google | 搜索行为 |
+| Amazon | 购买行为 |
+| Meta | 社交行为 |
+| TikTok | 内容消费 |
+| Tinder | 约会偏好 |
+| 手机 | 最广泛的视图（但受限） |
+
+### 手机 vs 平台
+
+**手机的优势**：
+- 理论上有更广泛的视图
+- 可以知道你在 Amazon 买了什么
+- 可以知道你在 Instagram 看了什么
+
+**手机的局限**：
+- Apple/Google 非常谨慎
+- 中国 Android OEM 更激进
+- 看不到 Meta 展示图片的图谱
+
+### Agent LLM 的新角色
+
+AI 助手可能成为另一个"摸象的盲人"：
+- 知道不同的事情
+- 随着使用知道关于你的不同事情
+- 得出新结论
+
+**特别是如果**：
+- 它在 Amazon 和 Instacart 上为你买东西
+- 你使用它的浏览器
+- 你使用它的可穿戴设备
+
+## 滤镜革命
+
+### 互联网的滤镜问题
+
+**互联网带来的变化**：
+- 移除了旧的滤镜、策展和编辑
+- 现在有无限的产品、媒体和零售
+- **没有办法找到或看到我们不知道的东西**
+
+**现有滤镜的局限**：
+- 非常不完美
+- 基于有限的信号
+
+### LLM 作为新滤镜
+
+> "We have a radically new and different kind of filter. That seems like a bigger question than replacing Google."
+
+LLM 提供：
+- 全新的过滤方式
+- 理解而非仅相关性
+- 可能绕过网络效应的冷启动
+
+## 当前状态
+
+### 1997/2007 时刻
+
+> "The state of AI today feels a lot like the web in 1997 or mobile in 2007: we know this is big but we don't know how any of it is going to work."
+
+**已知**：
+- 这是大事
+- 将改变很多事情
+
+**未知**：
+- 具体如何工作
+- 商业模式是什么
+- 赢家和输家是谁
+
+## 战略启示
+
+1. **网络效应可能被削弱**：如果 LLM 能提供通用推荐能力
+2. **数据护城河可能被跨越**：不需要自己的用户数据
+3. **新入口点可能出现**：AI 助手成为新的用户界面
+4. **推荐系统可能被重构**：从相关性到理解
+
+## 延伸阅读
+
+- [Competing in Search](./benedict-evans-competing-search.md)
+- [The AI Summer](./benedict-evans-ai-summer.md)
+- Benedict Evans 博客: https://www.ben-evans.com
