@@ -1,2 +1,5 @@
 .claude/settings.local.json
 .mcp.json
+
+docs/knowledge/autonomous-log.md
+docs/knowledge/.learned-urls.txt
