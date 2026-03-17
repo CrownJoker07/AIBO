@@ -1,5 +1,9 @@
 # Business 知识库索引
 
+## analytics/
+
+- **[gameanalytics-blog-insights.md](./analytics/gameanalytics-blog-insights.md)** - GameAnalytics 博客核心洞察：A/B测试、用户获取、变现策略
+
 ## advertising/
 
 - **[advertising-analytics-guide.md](./advertising/advertising-analytics-guide.md)** - 游戏广告投放数据分析指南，核心指标体系
