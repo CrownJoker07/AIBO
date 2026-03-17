@@ -24,6 +24,13 @@ COUNT=0
 MAX_ROUNDS=${1:-100}
 FILTER_INPUT=${2:-}  # 可选：分类名或自然语言提示词
 SLEEP_INTERVAL=${SLEEP_INTERVAL:-5}
+MAX_SOURCE_FAILURES=2  # 单个源最大连续失败次数，超过后切换到下一个源
+
+# 追踪每个源的连续失败次数（URL -> 失败次数）
+declare -A SOURCE_FAILURES
+
+# 当前源索引（用于轮询）
+CURRENT_SOURCE_INDEX=0
 
 # 智能过滤相关变量
 FILTER_TYPE="all"
@@ -555,8 +562,37 @@ do
         break
     fi
 
-    # 选择本轮学习源（轮询方式）
-    CURRENT_SOURCE=$(echo "$PENDING" | head -1)
+    # 获取待学习源总数
+    TOTAL_SOURCES=$(echo "$PENDING" | grep -c . 2>/dev/null || echo "0")
+
+    # 轮询选择学习源（从当前索引开始，最多尝试所有源一次）
+    CURRENT_SOURCE=""
+    ATTEMPTED=0
+    while [ $ATTEMPTED -lt $TOTAL_SOURCES ]; do
+        CURRENT_SOURCE=$(echo "$PENDING" | sed -n "$((CURRENT_SOURCE_INDEX + 1))p")
+        URL=$(echo "$CURRENT_SOURCE" | cut -d'|' -f2 2>/dev/null || echo "")
+
+        # 检查当前源是否连续失败过多
+        FAIL_COUNT=${SOURCE_FAILURES[$URL]:-0}
+        if [ $FAIL_COUNT -lt $MAX_SOURCE_FAILURES ]; then
+            break  # 当前源可以尝试
+        fi
+
+        # 当前源失败过多，切换到下一个
+        CURRENT_SOURCE_INDEX=$(( (CURRENT_SOURCE_INDEX + 1) % TOTAL_SOURCES ))
+        ATTEMPTED=$((ATTEMPTED + 1))
+    done
+
+    if [ -z "$CURRENT_SOURCE" ]; then
+        echo "⚠️ 所有源都连续失败过多，重置失败计数..."
+        # 重置所有失败计数
+        for key in "${!SOURCE_FAILURES[@]}"; do
+            SOURCE_FAILURES[$key]=0
+        done
+        CURRENT_SOURCE_INDEX=0
+        CURRENT_SOURCE=$(echo "$PENDING" | head -1)
+    fi
+
     CATEGORY=$(echo "$CURRENT_SOURCE" | cut -d'|' -f1)
     URL=$(echo "$CURRENT_SOURCE" | cut -d'|' -f2)
     DESCRIPTION=$(echo "$CURRENT_SOURCE" | cut -d'|' -f3)
@@ -579,7 +615,9 @@ do
 
     if [ -z "$ARTICLE_URLS" ]; then
         echo "⚠️ No articles found, skipping..."
-        # 不要标记主页！只跳过这篇文章
+        # 增加失败计数
+        SOURCE_FAILURES[$URL]=$((${SOURCE_FAILURES[$URL]:-0} + 1))
+        CURRENT_SOURCE_INDEX=$(( (CURRENT_SOURCE_INDEX + 1) % TOTAL_SOURCES ))
         continue
     fi
 
@@ -590,7 +628,25 @@ do
 
     # 统计本轮文章数
     ARTICLE_COUNT=$(echo "$ARTICLE_URLS" | wc -l | tr -d ' ')
-    echo "📰 Found $ARTICLE_COUNT article(s) to process"
+
+    # 检查是否有可学习的文章（排除已学习的）
+    AVAILABLE_ARTICLES=0
+    while IFS= read -r ARTICLE_URL; do
+        [ -z "$ARTICLE_URL" ] && continue
+        if ! is_url_learned "$ARTICLE_URL"; then
+            AVAILABLE_ARTICLES=$((AVAILABLE_ARTICLES + 1))
+        fi
+    done <<< "$ARTICLE_URLS"
+
+    if [ $AVAILABLE_ARTICLES -eq 0 ]; then
+        echo "⚠️ 没有可学习的新文章（全部已学习或过滤掉）"
+        # 增加失败计数
+        SOURCE_FAILURES[$URL]=$((${SOURCE_FAILURES[$URL]:-0} + 1))
+        CURRENT_SOURCE_INDEX=$(( (CURRENT_SOURCE_INDEX + 1) % TOTAL_SOURCES ))
+        continue
+    fi
+
+    echo "📰 Found $ARTICLE_COUNT article(s) to process ($AVAILABLE_ARTICLES 可学习)"
 
     # 处理每篇文章
     ARTICLES_LEARNED=0
@@ -684,13 +740,21 @@ do
         sleep "$SLEEP_INTERVAL"
     done <<< "$ARTICLE_URLS"
 
-    # 如果有文章被学习，只标记具体文章（主页不标记）
+    # 如果有文章被学习，重置失败计数并切换到下一个源
     if [ $ARTICLES_LEARNED -gt 0 ]; then
         echo ""
         echo "✅ Round $COUNT finished: $ARTICLES_LEARNED article(s) learned"
+        # 成功后重置该源的失败计数
+        SOURCE_FAILURES[$URL]=0
+        # 切换到下一个源
+        CURRENT_SOURCE_INDEX=$(( (CURRENT_SOURCE_INDEX + 1) % TOTAL_SOURCES ))
     else
         echo ""
         echo "ℹ️ Round $COUNT: No new articles to learn"
+        # 增加失败计数
+        SOURCE_FAILURES[$URL]=$((${SOURCE_FAILURES[$URL]:-0} + 1))
+        # 切换到下一个源
+        CURRENT_SOURCE_INDEX=$(( (CURRENT_SOURCE_INDEX + 1) % TOTAL_SOURCES ))
     fi
 done
 
