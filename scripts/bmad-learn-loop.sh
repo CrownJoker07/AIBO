@@ -240,6 +240,14 @@ discover_articles() {
         url_pattern=$(echo "$selector" | grep -oE "'[^']+'|\"[^\"]+\"" | tail -1 | sed "s/['\"]//g" || echo "")
     fi
 
+    # 如果仍然没有模式，尝试从主页 URL 提取默认路径
+    if [ -z "$url_pattern" ]; then
+        # 从 URL 中提取路径，如 https://gameanalytics.com/blog/ -> /blog/
+        url_pattern=$(echo "$homepage_url" | grep -oE '/[^/]+/?$' | sed 's|/.$||' || echo "")
+        # 如果 URL 是根路径或提取失败，使用空模式
+        [ -z "$url_pattern" ] && url_pattern=""
+    fi
+
     # 提取匹配的链接 - 支持多种 href 格式
     local articles=""
     local raw_links
@@ -256,6 +264,7 @@ discover_articles() {
         echo "⚠️ Pattern didn't match, trying fallback..." >&2
         raw_links=$(echo "$html" | grep -oE "href=\"[^\"]+\"|href='[^']+'" | \
             sed -E 's/href="//;s/href=.//;s/"//g' | \
+            grep -v '^?' | grep -v '^#' | grep -v '^$' | grep -v '^/$' | \
             grep -E "${url_pattern}" | \
             sort -u)
     fi
@@ -275,14 +284,26 @@ discover_articles() {
     local base_url
     base_url=$(echo "$homepage_url" | sed 's|/[^/]*$||')
 
+    # 提取主机部分（不含路径），用于处理绝对路径链接
+    local host_url
+    host_url=$(echo "$homepage_url" | grep -oE '^https?://[^/]+' || echo "")
+
     local result=""
     while IFS= read -r article_url; do
         # 跳过空行
         [ -z "$article_url" ] && continue
 
+        # 跳过无效链接（查询参数、锚点、根路径、javascript 等）
+        if [[ "$article_url" =~ ^\? ]] || [[ "$article_url" == "#"* ]] || \
+           [[ "$article_url" == "/" ]] || [[ "$article_url" =~ ^javascript: ]] || \
+           [ -z "$article_url" ]; then
+            continue
+        fi
+
         # 转换相对路径为绝对路径
         if [[ "$article_url" == /* ]]; then
-            article_url="${base_url}${article_url}"
+            # 去除 article_url 前导的 /，避免与 base_url 路径重复
+            article_url="${host_url}${article_url}"
         elif [[ "$article_url" != http* ]]; then
             article_url="${base_url}/${article_url}"
         fi
@@ -439,7 +460,8 @@ get_pending_sources() {
         # 智能过滤模式：从原始配置文件读取，检查是否有未学习的具体文章
         if [ "$FILTER_TYPE" = "smart" ]; then
             # 从原始配置文件获取该源的完整信息（包含选择器）
-            while IFS='|' read -r orig_category orig_url orig_selector _ || [ -n "$orig_category" ]; do
+            # 格式: 分类|URL|描述|选择器|频率
+            while IFS='|' read -r orig_category orig_url orig_description orig_selector orig_frequency || [ -n "$orig_category" ]; do
                 [[ -z "$orig_category" || "$orig_category" =~ ^[[:space:]]*# ]] && continue
                 if [ "$orig_url" = "$url" ]; then
                     # 发现具体文章
