@@ -2,7 +2,7 @@
 
 > Distill 是 2016-2021 年运营的科学期刊，专注于机器学习研究的清晰、动态、生动呈现
 >
-> **文档来源**: http://distill.pub/journal/ | http://distill.pub/about/ | http://distill.pub/ | http://distill.pub/archive/
+> **文档来源**: http://distill.pub/journal/ | http://distill.pub/about/ | http://distill.pub/ | http://distill.pub/archive/ | http://distill.pub/prize/
 > **获取日期**: 2026-03-18
 > **原始发布**: 2016-2021
 > **状态**: 无限期休刊 (indefinite hiatus)
@@ -67,6 +67,70 @@
 - **清晰性** - 表达清晰，易于理解
 - **原创性** - 提供新的见解或方法
 - **重要性** - 对领域有实质性贡献
+
+---
+
+## Distill 清晰奖 (Distill Prize for Clarity)
+
+**原文**: Distill Prize for Clarity in Machine Learning
+**URL**: http://distill.pub/prize/
+**启动时间**: 2018年
+
+### 奖项概述
+
+Distill 清晰奖旨在表彰在机器学习和相邻领域进行杰出沟通和思想提炼的工作。
+
+### 奖金与资助
+
+| 项目 | 详情 |
+|------|------|
+| **奖金金额** | $10,000 USD |
+| **初始捐赠** | $125,000 USD |
+| **资助方** | Chris Olah, Greg Brockman, Jeff Dean, DeepMind, Open Philanthropy Project |
+| **运营方** | Open Philanthropy Project |
+
+### 颁发时间
+
+- 从 2018 年开始每年颁发
+- 评选截止日期：每年 1 月 1 日前完成的工作
+- 决策时间：每年 2 月底前
+
+### 获奖资格范围
+
+Distill Prize 认可以下类型的工作：
+
+| 工作类型 | 说明 |
+|----------|------|
+| **教程与开放阐述问题** | 解决领域中的"开放阐述问题"，创建教程 |
+| **新视角创造** | 创造看待事物的新方式，重新框架或创造新视角 |
+| **澄清形式知识** | 澄清我们形式上知道但不理解的事物 |
+| **可视化与界面** | 创建可视化、界面或可探索的解释 |
+| **卓越沟通** | 极好地传达新颖研究结果 |
+| **研究过滤与总结** | 过滤和总结研究领域的进展 |
+
+### 提名机制
+
+- **提名方式**: 发送邮件至 prize@distill.pub
+- **截止日期**: 1 月 1 日前提交的提名将被纳入当年评选
+- **提名要求**: 包含相关工作的链接
+- **限制**: 不能自我提名
+
+### 与 Distill Journal 的关系
+
+💡 **重要澄清**：
+- 获得 Distill Prize 与在 Distill Journal 发表是**完全独立**的
+- Prize 对在 Distill Journal 发表的工作**没有内在偏好**
+- Distill Prize 在法律上与 Distill Journal 分离
+- Prize 不由 Distill Journal 资助或颁发
+
+### 奖项理念
+
+Distill Prize 体现了以下价值观：
+
+1. **沟通价值**：优秀的科学沟通本身就是重要贡献
+2. **思想提炼**：将复杂概念转化为清晰理解的工作值得认可
+3. **多元贡献**：非传统研究产出（如可视化、交互式解释）应获得学术认可
+4. **社区推动**：鼓励更多人投入清晰化工作
 
 ---
 
