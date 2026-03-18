@@ -3,7 +3,7 @@
 > 来源: https://lostgarden.com/
 > 作者: Daniel Cook
 > 获取日期: 2026-03-18
-> 原始请求URL: https://i0.wp.com/lostgarden.com/wp-content/uploads/2024/02/cropped-icon.webp?fit=192%2C192&
+> 原始请求URL: https://i0.wp.com/lostgarden.com/wp-content/uploads/2024/02/cropped-icon.webp?fit=180%2C180&
 > 描述: 游戏设计理论与系统性设计思考
 
 ---
