@@ -2,7 +2,7 @@
 
 > Distill 是 2016-2021 年运营的科学期刊，专注于机器学习研究的清晰、动态、生动呈现
 >
-> **文档来源**: http://distill.pub/about/ | http://distill.pub/
+> **文档来源**: http://distill.pub/about/ | http://distill.pub/ | http://distill.pub/archive/
 > **获取日期**: 2026-03-18
 > **原始发布**: 2016-2021
 > **状态**: 无限期休刊 (indefinite hiatus)
@@ -324,19 +324,89 @@ w^{k+1} = w^0 + ∑_i^k Γ_i^k ∇f(w^i)
 
 ---
 
-## 其他重要文章索引
+## 完整文章索引
 
-| 文章 | 发布日期 | 主题 |
-|------|----------|------|
-| Attention and Augmented RNNs | 2016-09-08 | 神经注意力机制 |
-| Deconvolution and Checkerboard Artifacts | 2016-10-17 | 反卷积棋盘伪影 |
-| Research Debt | 2017-03-22 | 研究债务概念 |
-| Sequence Modeling with CTC | 2017-11-27 | CTC 序列建模 |
-| The Building Blocks of Interpretability | 2018-03-06 | 可解释性构建块 |
-| Activation Atlas | 2019-03-06 | 激活图谱 |
-| A Gentle Introduction to Graph Neural Networks | 2021-09-02 | 图神经网络入门 |
-| Multimodal Neurons in ANNs | 2021-03-04 | 多模态神经元 |
-| Circuits Thread | 2020-03-10 | 神经网络电路 |
+### Vol 1 (2016)
+
+| 文章 | 发布日期 | 作者 | 主题 |
+|------|----------|------|------|
+| Attention and Augmented RNNs | 2016-09-08 | Olah, Carter | 神经注意力机制可视化 |
+| Deconvolution and Checkerboard Artifacts | 2016-10-17 | Odena, Dumoulin, Olah | 反卷积棋盘伪影 |
+| How to Use t-SNE Effectively | 2016-10-13 | Wattenberg, Viégas, Johnson | t-SNE 有效使用指南 |
+| Experiments in Handwriting with a Neural Network | 2016-12-06 | Carter, Ha, Johnson, Olah | 神经网络手写实验 |
+
+### Vol 2 (2017)
+
+| 文章 | 发布日期 | 作者 | 主题 |
+|------|----------|------|------|
+| Research Debt | 2017-03-22 | Olah, Carter | 研究债务概念 |
+| Why Momentum Really Works | 2017-04-04 | Goh | 动量优化原理 |
+| Sequence Modeling with CTC | 2017-11-27 | Hannun | CTC 序列建模 |
+| Feature Visualization | 2017-11-07 | Olah, Mordvintsev, Schubert | 特征可视化 |
+| Using AI to Augment Human Intelligence | 2017-12-04 | Carter, Nielsen | AI 增强人类智能 |
+
+### Vol 3 (2018)
+
+| 文章 | 发布日期 | 作者 | 主题 |
+|------|----------|------|------|
+| The Building Blocks of Interpretability | 2018-03-06 | Olah 等 | 可解释性构建块 |
+| Feature-wise Transformations | 2018-07-09 | Dumoulin 等 | 特征变换 |
+| Differentiable Image Parameterizations | 2018-07-25 | Mordvintsev 等 | 可微分图像参数化 |
+
+### Vol 4 (2019)
+
+| 文章 | 发布日期 | 作者 | 主题 |
+|------|----------|------|------|
+| AI Safety Needs Social Scientists | 2019-02-19 | Irving, Askell | AI安全需要社会科学家 |
+| Visualizing Memorization in RNNs | 2019-03-25 | Madsen | RNN记忆可视化 |
+| Activation Atlas | 2019-03-06 | Carter 等 | 激活图谱 |
+| Open Questions about GANs | 2019-04-09 | Odena | GAN开放问题 |
+| A Visual Exploration of Gaussian Processes | 2019-04-02 | Görtler 等 | 高斯过程可视化 |
+| Adversarial Examples Discussion | 2019-08-06 | Engstrom 等 | 对抗样本讨论 |
+| The Paths Perspective on Value Learning | 2019-09-30 | Greydanus, Olah | 价值学习的路径视角 |
+| Computing Receptive Fields of CNNs | 2019-11-04 | Araujo 等 | CNN感受野计算 |
+
+### Vol 5 (2020)
+
+| 文章 | 发布日期 | 作者 | 主题 |
+|------|----------|------|------|
+| Visualizing Feature Attribution Baselines | 2020-01-10 | Sturmfels 等 | 特征归因基线可视化 |
+| Growing Neural Cellular Automata | 2020-02-11 | Mordvintsev 等 | 生长神经细胞自动机 |
+| Visualizing Neural Networks with Grand Tour | 2020-03-16 | Li, Zhao, Scheidegger | 神经网络Grand Tour可视化 |
+| Circuits Thread | 2020-03-10 | Cammarata 等 | 神经网络电路系列 |
+| Zoom In: Introduction to Circuits | 2020-03-10 | Olah 等 | 电路入门 |
+| Overview of Early Vision in InceptionV1 | 2020-04-01 | Olah 等 | InceptionV1早期视觉 |
+| Exploring Bayesian Optimization | 2020-05-05 | Agnihotri, Batra | 贝叶斯优化探索 |
+| Curve Detectors | 2020-06-17 | Cammarata 等 | 曲线检测器 |
+| Differentiable Self-organizing Systems | 2020-08-27 | Mordvintsev 等 | 可微分自组织系统 |
+| Self-classifying MNIST Digits | 2020-08-27 | Randazzo 等 | 自分类MNIST数字 |
+| Communicating with Interactive Articles | 2020-09-11 | Hohman 等 | 交互式文章交流 |
+| Understanding RL Vision | 2020-11-17 | Hilton 等 | 理解RL视觉 |
+| Naturally Occurring Equivariance | 2020-12-08 | Olah 等 | 神经网络等变性 |
+
+### Vol 6 (2021)
+
+| 文章 | 发布日期 | 作者 | 主题 |
+|------|----------|------|------|
+| Curve Circuits | 2021-01-30 | Cammarata 等 | 曲线电路 |
+| High-Low Frequency Detectors | 2021-01-27 | Schubert 等 | 高低频检测器 |
+| Self-Organising Textures | 2021-02-11 | Niklasson 等 | 自组织纹理 |
+| Visualizing Weights | 2021-02-04 | Voss 等 | 权重可视化 |
+| Multimodal Neurons in ANNs | 2021-03-04 | Goh 等 | 多模态神经元 |
+| Weight Banding | 2021-04-08 | Petrov 等 | 权重条带 |
+| Branch Specialization | 2021-04-05 | Voss 等 | 分支特化 |
+| Adversarial Reprogramming of NCA | 2021-05-06 | Randazzo 等 | NCA对抗重编程 |
+| Distill Hiatus | 2021-07-02 | Editorial Team | 休刊公告 |
+| Understanding Convolutions on Graphs | 2021-09-02 | Daigavane 等 | 图卷积理解 |
+| A Gentle Introduction to GNNs | 2021-09-02 | Sanchez-Lengeling 等 | 图神经网络入门 |
+
+### 主题系列
+
+| 系列名称 | 文章数 | 核心主题 |
+|----------|--------|----------|
+| **Circuits** | 10+ | 神经网络内部电路逆向工程 |
+| **Self-organizing Systems** | 3+ | 可微分自组织系统 |
+| **Adversarial Examples** | 8 | 对抗样本深度讨论 |
 
 ---
 
