@@ -102,32 +102,54 @@ AI产品的兴起打破了传统软件的交互范式：
 
 ### 三阶段工作流
 
-#### 1. 数据即自然语言
+#### 1. 数据即自然语言 (Your data, in plain language)
 
 无需打开Amplitude配置报告，直接询问：
 - 新定价页面表现如何？
 - 用户在注册哪里流失？
 - 回访用户实际使用哪些功能？
 
-#### 2. 从洞察到构建
+Amplitude MCP 给 Lovable 访问和处理行为数据的工具，直接在构建环境中获得答案。
 
-基于数据立即提出改进建议：
+#### 2. 从洞察到构建 (From insight to build)
+
+一旦理解用户行为，可以立即询问如何改进：
+
+**关键洞察示例**：
+- 如果Agent发现用户在长注册表单上流失
+- Agent会查看表单结构、页面其他内容
+- 基于最佳实践给出具体、实用的建议
+
+**推荐Prompt**：
 - 用户在定价页离开，应该怎么改？
 - 参与度在首日后下降，提出三项改进
 - 基于此数据，最高影响的改动是什么？
 
-#### 3. 发布、测试、学习
+#### 3. 发布、测试、学习 (Ship it, test it, learn from it)
 
 A/B测试内置到连接器中：
 - Agent生成变体
 - 通过Amplitude实验SDK设置追踪
 - 分流流量比较性能
 
+**推荐Prompt**：
+- 对注册表单做那个改动并发布
+- 为这个hero区域创建与原版的A/B测试
+- 设置实验测试更短的注册流程
+
 ### 使用流程
 
-1. **设置追踪**：使用Quickstart指南开始追踪事件
+1. **设置追踪**：使用Quickstart指南开始追踪事件（如注册、转化）
 2. **连接Amplitude**：Settings → Connectors → 选择Amplitude并认证
 3. **开始询问**：看什么有效，修复什么无效，发布什么获胜
+
+### 核心金句
+
+> **Great products start with instinct. But great growth and maturity comes from learning how people actually use them.**
+> （伟大的产品始于直觉，但伟大的增长和成熟来自于学习人们实际如何使用它们。）
+
+> With Amplitude and Lovable connected via MCP, you can move **from vibes to signal** without breaking your flow.
+> （通过MCP连接Amplitude和Lovable，你可以在不中断工作流的情况下从"感觉"转向"信号"。）
 
 ---
 
