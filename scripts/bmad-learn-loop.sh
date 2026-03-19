@@ -683,39 +683,32 @@ do
         echo "---"
         echo "📄 Processing article: $ARTICLE_URL"
 
-        # 智能推断子文件夹
-        SUBFOLDER=$(ai_detect_subfolder "$DESCRIPTION")
-        if [ -n "$SUBFOLDER" ]; then
-            TARGET_DIR="docs/knowledge/$CATEGORY/$SUBFOLDER/"
-            echo "📂 检测到子文件夹: $SUBFOLDER"
-        else
-            TARGET_DIR="docs/knowledge/$CATEGORY/"
-        fi
-
         # 构建学习 prompt
+        # 注意：不在这里预判子文件夹，让 skill 根据文章内容自行判断
         BMAD_PROMPT="/bmad-agent-autonomous-learner
 
 执行学习任务：
 - 分类: $CATEGORY
-- 子文件夹: ${SUBFOLDER:-无}
 - 来源: $ARTICLE_URL
 - 主页: $URL
 - 描述: $DESCRIPTION
 
-请使用 Learn 能力从该具体文章 URL 学习知识并存储到 ${TARGET_DIR} 目录。
+请使用 Learn 能力从该具体文章 URL 学习知识。
 
 重要要求：
 1. 文档来源字段必须记录完整文章 URL: $ARTICLE_URL
 2. 使用当前日期 (2026年) 作为获取日期
 3. 如果文章中有原始发布日期，也要记录
-4. 学习完成后，将关键洞察沉淀到 ${TARGET_DIR}知识沉淀.md
+4. 根据文章内容自行判断应该存储到哪个子文件夹（如 游戏设计/、用户获取/、变现/、AI技术/ 等）
+5. 学习完成后，将关键洞察沉淀到对应分类目录下的知识沉淀.md
 
 处理流程：
 1. 获取 URL 内容
-2. 提取关键知识点
-3. 存储到对应分类目录（如果有子文件夹要求，请放到子文件夹中）
-4. 沉淀关键洞察到知识沉淀文件
-5. 返回学习结果摘要（包含文章标题、知识点沉淀位置、新增知识点数量）"
+2. 分析文章主题，判断合适的子文件夹分类
+3. 提取关键知识点
+4. 存储到 docs/knowledge/{分类}/{子文件夹}/ 目录
+5. 沉淀关键洞察到知识沉淀文件
+6. 返回学习结果摘要（包含文章标题、知识点沉淀位置、子文件夹判断理由、新增知识点数量）"
 
         # 调用 Claude 执行学习
         ROUND_OUTPUT=$(claude -p "$BMAD_PROMPT" \
