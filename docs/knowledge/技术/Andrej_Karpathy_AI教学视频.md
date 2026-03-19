@@ -3,6 +3,7 @@
 > 从零构建神经网络的顶级教程系列
 > 来源: https://www.youtube.com/@AndrejKarpathy
 > 获取日期: 2026-03-18
+> 最后更新: 2026-03-19
 
 ---
 
@@ -56,9 +57,16 @@
 | 视频主题 | 核心内容 | 项目 |
 |----------|----------|------|
 | **micrograd** | 自动微分引擎、反向传播 | 构建类 PyTorch 的 autograd |
-| **makemore** | 字符级语言模型 | MLP、激活函数、BatchNorm |
-| **Let's build GPT** | Transformer 架构 | 从零实现 GPT |
+| **micrograd** (续) | 理解 PyTorch 底层原理 | Value 类实现链式求导 |
+| **makemore Part 1** | 字符级语言模型、Bigram | 统计方法生成名字 |
+| **makemore Part 2** | MLP 实现 | Bengio 2003 论文复现 |
+| **makemore Part 3** | 激活函数、梯度流 | 解决梯度消失/爆炸 |
+| **makemore Part 4** | BatchNorm、训练技巧 | 批归一化原理与实现 |
+| **makemore Part 5** | WaveNet 架构 | 扩张卷积实现 |
+| **Let's build GPT** | Transformer 完整实现 | 从零实现 GPT-2 |
 | **Backpropagation** | 梯度计算原理 | 手动推导反向传播 |
+| **GPT tokenizer** | BPE 分词算法 | 最小化 tokenizer 实现 |
+| **Let's reproduce GPT-2** | 完整训练流程 | 复现 GPT-2 (124M) |
 
 ### 教学特点
 
@@ -66,6 +74,29 @@
 2. **代码优先**：边写代码边解释，而非先理论后实践
 3. **可视化强**：大量图示帮助理解抽象概念
 4. **循序渐进**：从简单到复杂，每一步都清晰可理解
+
+### 视频系列详细知识点
+
+#### micrograd 系列
+- **自动微分核心**：构建 Value 类，实现 `+`, `*`, `tanh` 等操作
+- **反向传播**：`backward()` 方法递归计算梯度
+- **拓扑排序**：确保计算顺序正确
+- **PyTorch 对照**：验证实现与 PyTorch 结果一致
+
+#### makemore 系列 (5 parts)
+```
+Part 1: Bigram → 统计语言模型
+Part 2: MLP  → 多层感知机 (Bengio 2003)
+Part 3: 激活  → Kaiming 初始化、梯度流分析
+Part 4: BN   → BatchNorm 原理与实现
+Part 5: WNet → WaveNet 扩张卷积
+```
+
+#### GPT 系列
+- **Tokenizer**：BPE (Byte Pair Encoding) 从零实现
+- **Attention**：自注意力机制、多头注意力
+- **Transformer Block**：LayerNorm、MLP、残差连接
+- **训练复现**：完整复现 GPT-2 (124M 参数)
 
 ---
 
@@ -227,5 +258,3 @@ AI教育:   教师 ↔ AI助教 ↔ 学生 (多向互动)
    - 但人类教师不可替代
 
 ---
-
-*最后更新: 2026-03-18*
