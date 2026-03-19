@@ -2,7 +2,45 @@
 
 > Unreal Engine 5 核心技术学习
 > 来源: https://docs.unrealengine.com/
-> 获取日期: 2026-03-18
+> 主页: https://docs.unrealengine.com/
+> 获取日期: 2026-03-19 (首次获取: 2026-03-18)
+
+---
+
+## 官方文档结构概览
+
+### 文档版本
+
+| 版本 | URL | 状态 |
+|------|-----|------|
+| UE 5.5 (最新) | https://docs.unrealengine.com/5.5/ | 推荐使用 |
+| UE 5.4 | https://docs.unrealengine.com/5.4/ | 维护中 |
+| UE 5.3 | https://docs.unrealengine.com/5.3/ | 维护中 |
+| UE 4.27 | https://docs.unrealengine.com/4.27/ | 传统项目 |
+
+### 文档语言
+
+- 英文版: https://docs.unrealengine.com/5.5/en-US/
+- 中文版: https://docs.unrealengine.com/5.5/zh-CN/
+- 日文版: https://docs.unrealengine.com/5.5/ja/
+- 韩文版: https://docs.unrealengine.com/5.5/ko/
+
+### 核心文档分类
+
+| 分类 | 主要内容 |
+|------|----------|
+| **入门指南** | 引擎安装、项目创建、编辑器基础 |
+| **编程指南** | C++ API、蓝图系统、 Gameplay 框架 |
+| **渲染与图形** | Nanite、Lumen、材质系统、后处理 |
+| **构建虚拟世界** | World Partition、地形、植被、程序化生成 |
+| **动画** | 骨骼动画、控制绑定、MetaHuman |
+| **音频** | MetaSounds、音频引擎、空间音频 |
+| **物理** | Chaos 物理引擎、碰撞、破坏系统 |
+| **AI** | 行为树、环境查询、状态树 |
+| **网络多人** | 复制系统、会话、服务器架构 |
+| **平台开发** | 移动端、主机平台、发布指南 |
+| **测试与优化** | 性能分析、自动化测试、调试工具 |
+| **美术管线** | FBX 导入、USD 支持、材质 baking |
 
 ---
 
@@ -249,15 +287,41 @@ World Partition
 
 ---
 
+## 学习资源推荐
+
+### 官方资源
+
+| 资源 | URL | 说明 |
+|------|-----|------|
+| **官方文档** | https://docs.unrealengine.com/ | 核心参考文档 |
+| **Dev Community** | https://dev.epicgames.com/community/unreal-engine/learning | 教程、课程、直播回放 |
+| **AnswerHub** | https://forums.unrealengine.com/ | 社区问答 |
+| **GitHub** | https://github.com/EpicGames/UnrealEngine | 引擎源码 |
+| **YouTube** | https://www.youtube.com/user/UnrealDevelopmentKit | 官方视频教程 |
+
+### 学习路径建议
+
+```
+入门 → 中级 → 高级
+  │       │       │
+  ▼       ▼       ▼
+编辑器   蓝图    C++ 开发
+基础     编程    性能优化
+项目     材质    引擎定制
+创建     动画    插件开发
+```
+
+---
+
 ## 知识来源
 
 | 来源 | URL | 日期 |
 |------|-----|------|
-| UE 5.5 Documentation | https://docs.unrealengine.com/ | 2026-03-18 |
+| UE 5.5 Documentation | https://docs.unrealengine.com/ | 2026-03-19 |
 | Nanite Documentation | https://docs.unrealengine.com/5.5/en-US/nanite-virtualized-geometry-in-unreal-engine/ | 2026-03-18 |
 | Lumen Documentation | https://docs.unrealengine.com/5.5/en-US/lumen-global-illumination-and-reflections-in-unreal-engine/ | 2026-03-18 |
 | Virtual Shadow Maps | https://docs.unrealengine.com/5.5/en-US/virtual-shadow-maps-in-unreal-engine/ | 2026-03-18 |
 | World Partition | https://docs.unrealengine.com/5.5/en-US/world-partition-in-unreal-engine/ | 2026-03-18 |
 | Blueprints | https://docs.unrealengine.com/5.5/en-US/blueprints-visual-scripting-in-unreal-engine/ | 2026-03-18 |
 
-**总计**：6 个核心主题，约 35 个知识点
+**总计**：6 个核心主题 + 文档结构概览，约 50 个知识点
