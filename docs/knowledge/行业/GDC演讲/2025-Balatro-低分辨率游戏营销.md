@@ -11,7 +11,7 @@
 | 演讲者 | Wout van Halderen |
 | 公司 | Playstack |
 | 主题 | Business & Marketing |
-| 获取日期 | 2026-03-18 |
+| 获取日期 | 2026-03-19 |
 
 ## 核心内容
 

@@ -11,7 +11,7 @@
 | 演讲者 | Elena Lobova |
 | 公司 | GDBAY |
 | 主题 | Production & Team Leadership |
-| 获取日期 | 2026-03-18 |
+| 获取日期 | 2026-03-19 |
 
 ## 核心内容
 

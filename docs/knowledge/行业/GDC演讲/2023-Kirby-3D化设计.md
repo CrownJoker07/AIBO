@@ -11,7 +11,7 @@
 | 演讲者 | Shinya Kumazaki, Tatsuya Kamiyama |
 | 公司 | HAL Laboratory, Inc. |
 | 主题 | Design |
-| 获取日期 | 2026-03-18 |
+| 获取日期 | 2026-03-19 |
 
 ## 核心内容
 
