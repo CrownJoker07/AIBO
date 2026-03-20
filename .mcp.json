@@ -7,7 +7,7 @@
                 "-y",
                 "@modelcontextprotocol/server-memory"
             ],
-            "disabled": true
+            "disabled": false
         }
     }
 }
