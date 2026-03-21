@@ -10,7 +10,7 @@ menu-code: S
 
 ## 输入参数
 
-- **category**: 可选。要汇总的分类 (business/data/planning/tech/market/all)
+- **category**: 可选。要汇总的分类 (产品/运营/商业化/数据/技术/质量/商务/行业/all)
 - **period**: 可选。汇总周期 (weekly/monthly/custom)
 
 ## 处理流程

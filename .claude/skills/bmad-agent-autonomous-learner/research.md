@@ -12,7 +12,7 @@ menu-code: R
 
 - **topic**: 调研主题
 - **scope**: 调研范围 (brief/deep)
-- **category**: 知识分类 (business/data/planning/tech/market)
+- **category**: 知识分类 (产品/运营/商业化/数据/技术/质量/商务/行业/all)
 
 ## 处理流程
 

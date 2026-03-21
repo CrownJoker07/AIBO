@@ -6,14 +6,17 @@ Welcome! Let me set up your knowledge management workspace.
 
 Creating `_bmad/_memory/autonomous-learner-sidecar/` for persistent memory.
 
-## Knowledge Categories
+## Knowledge Categories (2026 Game Company Org Structure)
 
 I'm configured to manage these knowledge categories:
-- **business/** - 业务知识（需求、流程、领域模型）
-- **data/** - 数据分析（指标、报表、洞察）
-- **planning/** - 策划方案（活动、产品、功能）
-- **tech/** - 技术文档（架构、API、设计）
-- **market/** - 市场和竞品
+- **产品/** - 游戏设计、用户体验（游戏设计、玩法、策划）
+- **运营/** - 用户增长、留存、社区、活动运营
+- **商业化/** - 变现、广告、归因、定价
+- **数据/** - 分析、BI、数据科学
+- **技术/** - 开发、AI、算法、运维
+- **质量/** - QA、安全
+- **商务/** - 发行、市场
+- **行业/** - 市场研究、战略、竞品分析
 
 ## Initial Structure
 
