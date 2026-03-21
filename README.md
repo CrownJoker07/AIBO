@@ -69,6 +69,7 @@ docs/knowledge/
 
 - `scripts/bmad-learn-loop.sh` - 自动学习脚本
 - `scripts/learning-sources.txt` - 学习源配置
+- `scripts/search-knowledge.sh` - 知识库搜索脚本
 
 ## 自动学习
 
@@ -84,3 +85,23 @@ docs/knowledge/
 # 智能匹配
 ./bmad-learn-loop.sh 100 "付费率"
 ```
+
+## 知识搜索
+
+使用 `./scripts/search-knowledge.sh` 搜索知识库：
+
+```bash
+# 搜索关键词
+./scripts/search-knowledge.sh 留存
+
+# 在特定分类中搜索
+./scripts/search-knowledge.sh -c 商业化 变现
+
+# 使用正则表达式
+./scripts/search-knowledge.sh -r "(D[0-9]|ROAS)"
+```
+
+## 文档规范
+
+- [命名规范](docs/knowledge/命名规范.md) - 文档命名标准
+- [原创分析模板](docs/knowledge/模板-原创分析.md) - AIBO 原创见解模板
