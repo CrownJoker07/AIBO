@@ -11,8 +11,8 @@ set -euo pipefail
 #
 # 示例:
 #   ./bmad-learn-loop.sh 100              # 学习所有分类
-#   ./bmad-learn-loop.sh 100 business     # 只学习 business 分类（固定分类）
-#   ./bmad-learn-loop.sh 50 tech          # 只学习 tech 分类（固定分类）
+#   ./bmad-learn-loop.sh 100 产品        # 只学习产品分类（固定分类）
+#   ./bmad-learn-loop.sh 50 技术         # 只学习技术分类（固定分类）
 #   ./bmad-learn-loop.sh 100 "留存优化"   # 智能匹配与留存优化相关的源
 #   ./bmad-learn-loop.sh 100 "变现策略"   # 智能匹配与变现策略相关的源
 # ============================================
@@ -551,7 +551,7 @@ if [ -n "$FILTER_INPUT" ]; then
             echo ""
             echo "💡 建议："
             echo "  - 尝试使用更通用的关键词"
-            echo "  - 查看可用分类：business, data, planning, tech, market"
+            echo "  - 查看可用分类：产品、运营、商业化、数据、技术、质量、商务、行业"
             echo "  - 示例提示词：'变现策略'、'用户留存'、'AI技术'"
             exit 0
         fi
